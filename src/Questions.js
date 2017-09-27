@@ -10,6 +10,8 @@ class Questions extends Component {
     this.state = {
       counter: 1
     }
+    this.incrementQuestions = this.incrementQuestions.bind(this)
+    this.decrementQuestions = this.decrementQuestions.bind(this)
   }
 
   getCurrentQuestionHeight() {
@@ -18,12 +20,14 @@ class Questions extends Component {
     return el.clientHeight
   }
   incrementQuestions() {
-    // scroll body by x
     console.log('incrementQuestions')
+    const currentQuestionHeight = this.getCurrentQuestionHeight()
+    console.log(currentQuestionHeight);
+    // scroll body by currentQuestionHeight
   }
   decrementQuestions() {
-    // scroll body by x
     console.log('decrementQuestions')
+    // scroll body by x
   }
 
   render() {
