@@ -12,21 +12,41 @@ class Questions extends Component {
     }
   }
 
-  incrementQuestions() {}
-  decrementQuestions() {}
+  getCurrentQuestionHeight() {
+    const el = document.querySelector(`.question:nth-of-type(${this.state.counter})`)
+    console.log(el.clientHeight);
+    return el.clientHeight
+  }
+  incrementQuestions() {
+    // scroll body by x
+    console.log('incrementQuestions')
+  }
+  decrementQuestions() {
+    // scroll body by x
+    console.log('decrementQuestions')
+  }
 
   render() {
     return (
       <div className="questionScroller">
-        <Question>
+        <Question
+          incrementQuestions={this.incrementQuestions}
+          decrementQuestions={this.decrementQuestions}
+        >
           <Component1 />
         </Question>
 
-        <Question>
+        <Question
+          incrementQuestions={this.incrementQuestions}
+          decrementQuestions={this.decrementQuestions}
+        >
           <Component2 />
         </Question>
 
-        <Question>
+        <Question
+          incrementQuestions={this.incrementQuestions}
+          decrementQuestions={this.decrementQuestions}
+        >
           <Component3 />
         </Question>
       </div>
