@@ -8,43 +8,25 @@ class Questions extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      q1: true,
-      q2: false,
-      q3: false,
-      currentQuestionHeight: null
+      counter: 1
     }
   }
 
-  componentDidMount() {
-    this.setState({currentQuestionHeight: this.getCurrentQuestionHeight()})
-  }
-
-  getCurrentQuestionHeight() {
-    const el = document.querySelector('.question')
-    return el.clientHeight
-  }
+  incrementQuestions() {}
+  decrementQuestions() {}
 
   render() {
     return (
       <div className="questionScroller">
-        <Question
-          show={this.state.q1}
-          currentQuestionHeight={this.state.currentQuestionHeight}
-        >
+        <Question>
           <Component1 />
         </Question>
 
-        <Question
-          show={this.state.q2}
-          currentQuestionHeight={this.state.currentQuestionHeight}
-        >
+        <Question>
           <Component2 />
         </Question>
 
-        <Question
-          show={this.state.q3}
-          currentQuestionHeight={this.state.currentQuestionHeight}
-        >
+        <Question>
           <Component3 />
         </Question>
       </div>

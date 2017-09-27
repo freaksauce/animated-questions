@@ -1,3 +1,7 @@
+body.hideScrollbars {
+  overflow: hidden;
+}
+
 .App {
   text-align: center;
 }
@@ -33,14 +37,10 @@
   margin-top: 190px;
 }
 .question {
-  position: absolute;
   width: 100%;
   height: calc(100vh - 190px);
   transition: all .8s ease-in-out;
   background: #ccc;
-}
-.question--animateIn {
-  transform: translateY(0)!important;
 }
 
 .question__inner {
