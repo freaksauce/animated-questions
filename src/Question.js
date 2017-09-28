@@ -23,14 +23,20 @@ class Question extends Component {
 
   render() {
     return (
-      React.cloneElement(
-        this.props.children,
+      <div className="question" id={this.props.id}>
+        <div className="question__inner">
         {
-          extraClasses: this.state.extraClasses,
-          onNext: this.onNext,
-          onBack: this.onBack
+          React.cloneElement(
+            this.props.children,
+            {
+              extraClasses: this.state.extraClasses,
+              onNext: this.onNext,
+              onBack: this.onBack
+            }
+          )
         }
-      )
+        </div>
+      </div>
     )
   }
 }

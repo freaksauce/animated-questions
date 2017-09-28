@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import scrollIt from './vendor/scrollIt'
 import Question from './Question'
 import Component1 from './Component1'
 import Component2 from './Component2'
@@ -12,6 +13,11 @@ class Questions extends Component {
     }
     this.incrementQuestions = this.incrementQuestions.bind(this)
     this.decrementQuestions = this.decrementQuestions.bind(this)
+    this.questionsArr = [
+      Component1,
+      Component2,
+      Component3
+    ]
   }
 
   getCurrentQuestionHeight() {
@@ -21,9 +27,21 @@ class Questions extends Component {
   }
   incrementQuestions() {
     console.log('incrementQuestions')
-    const currentQuestionHeight = this.getCurrentQuestionHeight()
-    console.log(currentQuestionHeight);
+    // const currentQuestionHeight = this.getCurrentQuestionHeight()
+    // console.log(currentQuestionHeight);
     // scroll body by currentQuestionHeight
+    const scrollTo = document.querySelector(`.question:nth-of-type(${this.state.counter + 1})`)
+
+    // Scroll to section 1
+    scrollIt(
+      document.querySelector(scrollTo),
+      300,
+      'easeOutQuad',
+      () => {
+        console.log(`Just finished scrolling to ${window.pageYOffset}px`)
+        this.setState({counter: this.state.counter + 1})
+      }
+    )
   }
   decrementQuestions() {
     console.log('decrementQuestions')
@@ -33,26 +51,18 @@ class Questions extends Component {
   render() {
     return (
       <div className="questionScroller">
-        <Question
-          incrementQuestions={this.incrementQuestions}
-          decrementQuestions={this.decrementQuestions}
-        >
-          <Component1 />
-        </Question>
-
-        <Question
-          incrementQuestions={this.incrementQuestions}
-          decrementQuestions={this.decrementQuestions}
-        >
-          <Component2 />
-        </Question>
-
-        <Question
-          incrementQuestions={this.incrementQuestions}
-          decrementQuestions={this.decrementQuestions}
-        >
-          <Component3 />
-        </Question>
+        {this.questionsArr.map((Component, index) => {
+          return (
+            <Question
+              id={`Q${index}`}
+              visible={true}
+              incrementQuestions={this.incrementQuestions}
+              decrementQuestions={this.decrementQuestions}
+              >
+              <Component />
+            </Question>
+          )
+        })}
       </div>
     )
   }
