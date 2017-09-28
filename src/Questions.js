@@ -17,7 +17,9 @@ class Questions extends Component {
     this.questionsArr = [
       Component1,
       Component2,
-      Component3
+      Component3,
+      Component1,
+      Component2
     ]
   }
 
@@ -85,7 +87,7 @@ class Questions extends Component {
     const currCounter = this.state.counter
     scrollIt(
       scrollTo,
-      300,
+      500,
       'easeOutQuad',
       () => {
         this.setState({counter: counterVal})
