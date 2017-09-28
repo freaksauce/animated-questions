@@ -77,7 +77,13 @@ class Questions extends Component {
     if (this.updatedVisibleQuestionsArr('-')) {
       const scrollTo = this.getNextQuestion('-')
       this.setState({visibleQuestionsArr: this.updatedVisibleQuestionsArr('-')}, () => {
-        // Scroll to next Question
+        /* when you mount a question in the DOM above the current question it pushes
+           the current question underneath in the page so the new question appears at top
+           to fix this an offset needs to be applied to the scroll position before animating
+        */
+        const el = document.querySelector('.question:nth-of-type(1)')
+        const offset = el.clientHeight
+        window.scroll(0, offset);
         this.animateQuestion(scrollTo, this.state.counter - 1)
       })
     }
@@ -92,8 +98,9 @@ class Questions extends Component {
       () => {
         this.setState({counter: counterVal})
         console.log(`Just finished scrolling to ${window.pageYOffset}px`)
+        console.log('Q to remove', `Q${currCounter}`);
         // delete current from visible array
-        this.removeFromVisibleArray(`Q${currCounter}`)
+        this.removeFromVisibleArray(`Q${currCounter}`) // NOT FIRING
       }
     )
   }
@@ -102,7 +109,6 @@ class Questions extends Component {
     return (
       <div className="questionScroller">
         {this.questionsArr.map((Component, index) => {
-          // console.log(typeof this.state.visibleQuestionsArr, this.state.visibleQuestionsArr);
           const isVisible = this.state.visibleQuestionsArr.includes(`Q${index + 1}`) ? true : false
           return (
             <Question

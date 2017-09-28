@@ -24,7 +24,7 @@ class Question extends Component {
   render() {
     return (
       <div className="question" id={this.props.id}>
-        {/* {this.props.visible && */}
+        {this.props.visible &&
           <div className="question__inner">
           {
             React.cloneElement(
@@ -37,7 +37,7 @@ class Question extends Component {
             )
           }
           </div>
-        {/* } */}
+        }
       </div>
     )
   }
