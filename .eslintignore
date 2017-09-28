@@ -1,0 +1,9 @@
+node_modules/*
+public/*
+**/assets/*
+/yarn-error.log
+/yarn.lock
+
+tests/*
+
+REACTINIT-README.md

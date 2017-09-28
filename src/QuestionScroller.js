@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import scrollIt from './vendor/scrollIt'
 import Question from './Question'
 import Component1 from './Component1'
@@ -118,6 +119,10 @@ class QuestionScroller extends Component {
       </div>
     )
   }
+}
+
+QuestionScroller.propTypes = {
+  
 }
 
 export default QuestionScroller
