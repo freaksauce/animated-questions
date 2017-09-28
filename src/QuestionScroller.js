@@ -15,6 +15,11 @@ class QuestionScroller extends Component {
     }
     this.incrementQuestions = this.incrementQuestions.bind(this)
     this.decrementQuestions = this.decrementQuestions.bind(this)
+
+    /*
+      test functions to add/remove components from the DOM set in App.js
+    */
+    const { addComponentToQuestionsArray, removeComponentFromQuestionsArray } = this.props
   }
 
   getNextQuestion(action) {
@@ -122,7 +127,7 @@ class QuestionScroller extends Component {
 }
 
 QuestionScroller.propTypes = {
-  
+  questions: PropTypes.arrayOf(PropTypes.object).isRequired
 }
 
 export default QuestionScroller

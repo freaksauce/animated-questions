@@ -11,6 +11,22 @@ class App extends Component {
   state = {
     questionsArray: [Component1, Component2, Component3]
   }
+  /*
+    functions to test that updating the questions array passed into the QuestionScroller
+    actually updated the DOM correctly
+  */
+  addComponentToQuestionsArray(componentToAdd) {
+    const updatedQuestionsArray = [...this.state.questionsArray, componentToAdd]
+    this.setState({questionsArray: updatedQuestionsArray})
+  }
+  removeComponentFromQuestionsArray(componentToRemove) {
+    const updatedQuestionsArray = this.state.questionsArray.filter(component => {
+      return component !== componentToRemove
+    })
+    this.setState({questionsArray: updatedQuestionsArray}, () => {
+      console.log(this.state)
+    })
+  }
   render() {
     return (
       <div className="App">
@@ -19,7 +35,11 @@ class App extends Component {
           <h2>Welcome to React</h2>
         </div>
         <div className="App-content">
-          <QuestionScroller questions={this.state.questionsArray} />
+          <QuestionScroller
+            questions={this.state.questionsArray}
+            addComponentToQuestionsArray={this.addComponentToQuestionsArray}
+            removeComponentFromQuestionsArray={this.removeComponentFromQuestionsArray}
+          />
         </div>
       </div>
     );
