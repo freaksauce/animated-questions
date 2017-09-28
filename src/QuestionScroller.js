@@ -5,7 +5,7 @@ import Component1 from './Component1'
 import Component2 from './Component2'
 import Component3 from './Component3'
 
-class Questions extends Component {
+class QuestionScroller extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -14,13 +14,6 @@ class Questions extends Component {
     }
     this.incrementQuestions = this.incrementQuestions.bind(this)
     this.decrementQuestions = this.decrementQuestions.bind(this)
-    this.questionsArr = [
-      Component1,
-      Component2,
-      Component3,
-      Component1,
-      Component2
-    ]
   }
 
   getNextQuestion(action) {
@@ -30,7 +23,7 @@ class Questions extends Component {
 
   updatedVisibleQuestionsArr(action) {
     const visibleQuestionsArr = this.state.visibleQuestionsArr
-    const questionsArrLen = this.questionsArr.length
+    const questionsArrLen = this.props.questions.length
     let questionToAdd = null
     if (action === '+') { // check if action was a plus (increment)
       if (this.state.counter + 1 <= questionsArrLen) {
@@ -108,7 +101,7 @@ class Questions extends Component {
   render() {
     return (
       <div className="questionScroller">
-        {this.questionsArr.map((Component, index) => {
+        {this.props.questions.map((Component, index) => {
           const isVisible = this.state.visibleQuestionsArr.includes(`Q${index + 1}`) ? true : false
           return (
             <Question
@@ -127,4 +120,4 @@ class Questions extends Component {
   }
 }
 
-export default Questions
+export default QuestionScroller

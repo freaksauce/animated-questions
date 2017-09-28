@@ -2,9 +2,15 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import Questions from './Questions'
+import QuestionScroller from './QuestionScroller'
+import Component1 from './Component1'
+import Component2 from './Component2'
+import Component3 from './Component3'
 
 class App extends Component {
+  state = {
+    questionsArray: [Component1, Component2, Component3]
+  }
   render() {
     return (
       <div className="App">
@@ -13,7 +19,7 @@ class App extends Component {
           <h2>Welcome to React</h2>
         </div>
         <div className="App-content">
-          <Questions />
+          <QuestionScroller questions={this.state.questionsArray} />
         </div>
       </div>
     );
