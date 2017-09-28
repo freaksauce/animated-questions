@@ -37,14 +37,14 @@ body.hideScrollbars {
   margin-top: 190px;
 }
 .question {
+
+}
+
+.question__inner {
   width: 100%;
   height: calc(100vh - 190px);
   transition: all .8s ease-in-out;
   background: #ccc;
-}
-
-.question__inner {
-  padding-top: 200px;
 }
 .question__inner label {
   display: block;
