@@ -4,67 +4,41 @@ class Question extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      styles: null,
       extraClasses: null
     }
     this.onNext = this.onNext.bind(this)
     this.onBack = this.onBack.bind(this)
   }
-  // componentDidUpdate(prevProps) {
-  //   console.log('-----------', prevProps, this.props)
-  //   if (prevProps.next !== this.props.next) {
-  //       this.animateOut()
-  //   }
-  //   if (prevProps.back !== this.props.back) {
-  //     this.animateIn()
-  //   }
-  // }
-  onNext(e) {
-    console.log('next')
-    this.animateOut()
+
+  componentDidMount() {}
+
+  onNext() {
+    console.log('onNext')
+    this.props.incrementQuestions()
   }
   onBack() {
-    console.log('back');
-  }
-  animateIn() {
-    console.log('animateIn');
-    const newStyles = {
-      transform: `translateY(calc(${this.props.currentQuestionHeight}px + 190px))`
-    }
-    this.setState({styles: newStyles})
-    setTimeout(() => {
-      this.setState({extraClasses: 'question--animateIn'}, () => {        
-        this.onAnimateComplete()
-      })
-    }, 1000)
-  }
-  animateOut() {
-    console.log('animateOut');
-    const newStyles = {
-      transform: `translateY(calc(-${this.props.currentQuestionHeight}px - 190px))`
-    }
-    this.setState({styles: newStyles})
-  }
-  onAnimateComplete(stateObj) {
-    console.log('onAnimateComplete', stateObj);
-    setTimeout(() => {
-      console.log('set animate complete state', stateObj);
-      this.setState(stateObj)
-    }, 8000)
+    console.log('onBack')
+    this.props.decrementQuestions()
   }
 
   render() {
     return (
-      this.props.show &&
-        React.cloneElement(
-          this.props.children,
+      <div className="question" id={this.props.id}>
+        {/* {this.props.visible && */}
+          <div className="question__inner">
           {
-            styles: this.state.styles,
-            extraClasses: this.state.extraClasses,
-            onNext: this.onNext,
-            onBack: this.onBack
+            React.cloneElement(
+              this.props.children,
+              {
+                extraClasses: this.state.extraClasses,
+                onNext: this.onNext,
+                onBack: this.onBack
+              }
+            )
           }
-        )
+          </div>
+        {/* } */}
+      </div>
     )
   }
 }
