@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import logo from './logo.svg'
+import './App.css'
 
 import QuestionScroller from './QuestionScroller'
 import Component1 from './Component1'
@@ -17,13 +17,13 @@ class App extends Component {
   */
   addComponentToQuestionsArray(componentToAdd) {
     const updatedQuestionsArray = [...this.state.questionsArray, componentToAdd]
-    this.setState({questionsArray: updatedQuestionsArray})
+    this.setState({ questionsArray: updatedQuestionsArray })
   }
   removeComponentFromQuestionsArray(componentToRemove) {
     const updatedQuestionsArray = this.state.questionsArray.filter(component => {
       return component !== componentToRemove
     })
-    this.setState({questionsArray: updatedQuestionsArray}, () => {
+    this.setState({ questionsArray: updatedQuestionsArray }, () => {
       console.log(this.state)
     })
   }
@@ -35,15 +35,12 @@ class App extends Component {
           <h2>Welcome to React</h2>
         </div>
         <div className="App-content">
-          <QuestionScroller
-            questions={this.state.questionsArray}
-            addComponentToQuestionsArray={this.addComponentToQuestionsArray}
-            removeComponentFromQuestionsArray={this.removeComponentFromQuestionsArray}
-          />
+          {/* TODO: use clone element instead to pass in add/remove functions */}
+          <QuestionScroller questions={this.state.questionsArray} />
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App

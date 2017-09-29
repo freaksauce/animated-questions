@@ -20,6 +20,9 @@ class Question extends Component {
     console.log('onBack')
     this.props.decrementQuestions()
   }
+  addQuestion() {
+    this.props.addComponentToQuestionsArray()
+  }
 
   render() {
     return (
@@ -32,7 +35,8 @@ class Question extends Component {
               {
                 extraClasses: this.state.extraClasses,
                 onNext: this.onNext,
-                onBack: this.onBack
+                onBack: this.onBack,
+                addQuestion: this.addQuestion
               }
             )
           }
