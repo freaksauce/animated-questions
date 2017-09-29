@@ -10,8 +10,6 @@ class Question extends Component {
     this.onBack = this.onBack.bind(this)
   }
 
-  componentDidMount() {}
-
   onNext() {
     console.log('onNext')
     this.props.incrementQuestions()
@@ -27,24 +25,32 @@ class Question extends Component {
   render() {
     return (
       <div className="question" id={this.props.id}>
-        {this.props.visible &&
+        {this.props.visible && (
           <div className="question__inner">
-          {
-            React.cloneElement(
-              this.props.children,
-              {
-                extraClasses: this.state.extraClasses,
-                onNext: this.onNext,
-                onBack: this.onBack,
-                addQuestion: this.addQuestion
-              }
-            )
-          }
+            {React.cloneElement(this.props.children, {
+              extraClasses: this.state.extraClasses,
+              onNext: this.onNext,
+              onBack: this.onBack,
+              addQuestion: this.addQuestion
+            })}
           </div>
-        }
+        )}
       </div>
     )
   }
+}
+
+Question.defaultProps = {
+  visible: false,
+  addComponentToQuestionsArray: null
+}
+Question.propTypes = {
+  id: PropTypes.string.isRequired,
+  visible: PropTypes.bool,
+  incrementQuestions: PropTypes.func.isRequired,
+  decrementQuestions: PropTypes.func.isRequired,
+  addComponentToQuestionsArray: PropTypes.func,
+  children: PropTypes.arrayOf(PropTypes.object).isRequired
 }
 
 export default Question
