@@ -12,11 +12,6 @@ class QuestionScroller extends Component {
     }
     this.incrementQuestions = this.incrementQuestions.bind(this)
     this.decrementQuestions = this.decrementQuestions.bind(this)
-
-    /*
-      test functions to add/remove components from the DOM set in App.js
-    */
-    const { addComponentToQuestionsArray, removeComponentFromQuestionsArray } = this.props
   }
 
   getNextQuestion(action) {
@@ -25,6 +20,7 @@ class QuestionScroller extends Component {
   }
 
   updatedVisibleQuestionsArr(action) {
+    console.log('updatedVisibleQuestionsArr')
     const visibleQuestionsArr = this.state.visibleQuestionsArr
     const questionsArrLen = this.props.questions.length
     let questionToAdd = null
@@ -34,19 +30,17 @@ class QuestionScroller extends Component {
         // if allowed create a new question id string to add to questionsArr
         questionToAdd = `Q${this.state.counter + 1}`
       }
-    }
-    // if action was a minus (decrement)
-    if (this.state.counter - 1 >= 1) {
+    } else if (this.state.counter - 1 >= 1) {
+      // if action was a minus (decrement)
       questionToAdd = `Q${this.state.counter - 1}`
     }
-
     // if not null add the question ID to the array and return
     if (questionToAdd !== null) return [...visibleQuestionsArr, questionToAdd]
     return false
   }
 
   removeFromVisibleArray(toDelete) {
-    console.log('removeFromVisibleArray', toDelete)
+    console.log('removeFromVisibleArray')
     const visibleQuestionsArr = this.state.visibleQuestionsArr
     const newVisibleQuestionsArr = visibleQuestionsArr.filter(questionId => {
       return questionId !== toDelete
@@ -96,12 +90,27 @@ class QuestionScroller extends Component {
   }
 
   render() {
+    /*
+      test functions to add/remove components from the DOM set in App.js
+    */
+    const {
+      addComponentToQuestionsArray,
+      removeComponentFromQuestionsArray
+    } = this.props
     return (
       <div className="questionScroller">
         {this.props.questions.map((QuestionComponent, index) => {
           const isVisible = !!this.state.visibleQuestionsArr.includes(`Q${index + 1}`)
           return (
-            <Question id={`Q${index + 1}`} key={`Q${index + 1}`} visible={isVisible} incrementQuestions={this.incrementQuestions} decrementQuestions={this.decrementQuestions}>
+            <Question
+              id={`Q${index + 1}`}
+              key={`Q${index + 1}`}
+              visible={isVisible}
+              incrementQuestions={this.incrementQuestions}
+              decrementQuestions={this.decrementQuestions}
+              addComponentToQuestionsArray={addComponentToQuestionsArray}
+              removeComponentFromQuestionsArray={removeComponentFromQuestionsArray}
+            >
               <QuestionComponent />
             </Question>
           )
@@ -112,7 +121,7 @@ class QuestionScroller extends Component {
 }
 
 QuestionScroller.propTypes = {
-  questions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  questions: PropTypes.arrayOf(PropTypes.func).isRequired,
   addComponentToQuestionsArray: PropTypes.func,
   removeComponentFromQuestionsArray: PropTypes.func
 }

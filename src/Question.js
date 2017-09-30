@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 class Question extends Component {
   constructor(props) {
@@ -8,6 +9,7 @@ class Question extends Component {
     }
     this.onNext = this.onNext.bind(this)
     this.onBack = this.onBack.bind(this)
+    this.addQuestion = this.addQuestion.bind(this)
   }
 
   onNext() {
@@ -50,7 +52,7 @@ Question.propTypes = {
   incrementQuestions: PropTypes.func.isRequired,
   decrementQuestions: PropTypes.func.isRequired,
   addComponentToQuestionsArray: PropTypes.func,
-  children: PropTypes.arrayOf(PropTypes.object).isRequired
+  children: PropTypes.node.isRequired
 }
 
 export default Question
