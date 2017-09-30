@@ -15,7 +15,8 @@ class App extends Component {
     this.removeComponentFromQuestionsArray = this.removeComponentFromQuestionsArray.bind(this)
   }
   state = {
-    questionsArray: [Component1, Component2, Component3]
+    questionsArray: [Component1, Component2, Component3],
+    updatedVisibleQuestion: null
   }
   /*
     functions to test that updating the questions array passed into the QuestionScroller
@@ -28,11 +29,18 @@ class App extends Component {
     const updatedQuestionsArray = [...this.state.questionsArray, componentToAdd]
     this.setState({ questionsArray: updatedQuestionsArray })
   }
-  removeComponentFromQuestionsArray(componentToRemove) {
-    const updatedQuestionsArray = this.state.questionsArray.filter(component => {
-      return component !== componentToRemove
-    })
-    this.setState({ questionsArray: updatedQuestionsArray }, () => {
+  removeComponentFromQuestionsArray(componentIndex) {
+    const { questionsArray } = this.state
+    // remove the component from DOM via the questionsArray
+    const updatedQuestionsArray = [
+      ...questionsArray.slice(0, componentIndex - 1),
+      ...questionsArray.slice(componentIndex)
+    ]
+    console.log(updatedQuestionsArray)
+    this.setState({
+      questionsArray: updatedQuestionsArray,
+      updatedVisibleQuestion: updatedQuestionsArray.length
+    }, () => {
       console.log(this.state)
     })
   }
@@ -46,6 +54,7 @@ class App extends Component {
         <div className="App-content">
           <QuestionScroller
             questions={this.state.questionsArray}
+            updatedVisibleQuestion={this.state.updatedVisibleQuestion}
             addComponentToQuestionsArray={this.addComponentToQuestionsArray}
             removeComponentFromQuestionsArray={this.removeComponentFromQuestionsArray}
           />

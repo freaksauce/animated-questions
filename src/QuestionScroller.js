@@ -14,6 +14,15 @@ class QuestionScroller extends Component {
     this.decrementQuestions = this.decrementQuestions.bind(this)
   }
 
+  componentWillReceiveProps(newProps) {
+    if (this.props.updatedVisibleQuestion !== newProps.updatedVisibleQuestion) {
+      this.setState({
+        counter: newProps.updatedVisibleQuestion,
+        visibleQuestionsArr: [`Q${newProps.updatedVisibleQuestion}`]
+      })
+    }
+  }
+
   getNextQuestion(action) {
     const selector = action === '+' ? `.question:nth-of-type(${this.state.counter + 1})` : `.question:nth-of-type(${this.state.counter - 1})`
     return document.querySelector(selector)
@@ -90,6 +99,7 @@ class QuestionScroller extends Component {
   }
 
   render() {
+    console.log(this.state)
     /*
       test functions to add/remove components from the DOM set in App.js
     */
@@ -109,7 +119,7 @@ class QuestionScroller extends Component {
               incrementQuestions={this.incrementQuestions}
               decrementQuestions={this.decrementQuestions}
               addComponentToQuestionsArray={addComponentToQuestionsArray}
-              removeComponentFromQuestionsArray={removeComponentFromQuestionsArray}
+              removeComponentFromQuestionsArray={(componentId) => removeComponentFromQuestionsArray(componentId)}
             >
               <QuestionComponent />
             </Question>
@@ -120,8 +130,12 @@ class QuestionScroller extends Component {
   }
 }
 
+QuestionScroller.defaultProps = {
+  updatedVisibleQuestion: null
+}
 QuestionScroller.propTypes = {
   questions: PropTypes.arrayOf(PropTypes.func).isRequired,
+  updatedVisibleQuestion: PropTypes.number,
   addComponentToQuestionsArray: PropTypes.func,
   removeComponentFromQuestionsArray: PropTypes.func
 }

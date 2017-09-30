@@ -10,6 +10,7 @@ class Question extends Component {
     this.onNext = this.onNext.bind(this)
     this.onBack = this.onBack.bind(this)
     this.addQuestion = this.addQuestion.bind(this)
+    this.removeQuestion = this.removeQuestion.bind(this)
   }
 
   onNext() {
@@ -23,6 +24,10 @@ class Question extends Component {
   addQuestion() {
     this.props.addComponentToQuestionsArray()
   }
+  removeQuestion(componentIndex) {
+    console.log('removeQuestion', componentIndex)
+    this.props.removeComponentFromQuestionsArray(componentIndex)
+  }
 
   render() {
     return (
@@ -33,7 +38,8 @@ class Question extends Component {
               extraClasses: this.state.extraClasses,
               onNext: this.onNext,
               onBack: this.onBack,
-              addQuestion: this.addQuestion
+              addQuestion: this.addQuestion,
+              removeQuestion: this.removeQuestion
             })}
           </div>
         )}
@@ -44,7 +50,8 @@ class Question extends Component {
 
 Question.defaultProps = {
   visible: false,
-  addComponentToQuestionsArray: null
+  addComponentToQuestionsArray: null,
+  removeComponentFromQuestionsArray: null
 }
 Question.propTypes = {
   id: PropTypes.string.isRequired,
@@ -52,6 +59,7 @@ Question.propTypes = {
   incrementQuestions: PropTypes.func.isRequired,
   decrementQuestions: PropTypes.func.isRequired,
   addComponentToQuestionsArray: PropTypes.func,
+  removeComponentFromQuestionsArray: PropTypes.func,
   children: PropTypes.node.isRequired
 }
 
