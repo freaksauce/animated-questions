@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-class Question extends Component {
+class Page extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -22,11 +22,11 @@ class Question extends Component {
     this.props.decrementQuestions()
   }
   addQuestion() {
-    this.props.addComponentToQuestionsArray()
+    this.props.addComponentToPagesArray()
   }
   removeQuestion(componentIndex) {
     console.log('removeQuestion', componentIndex)
-    this.props.removeComponentFromQuestionsArray(componentIndex)
+    this.props.removeComponentFromPagesArray(componentIndex)
   }
 
   render() {
@@ -48,19 +48,19 @@ class Question extends Component {
   }
 }
 
-Question.defaultProps = {
+Page.defaultProps = {
   visible: false,
-  addComponentToQuestionsArray: null,
-  removeComponentFromQuestionsArray: null
+  addComponentToPagesArray: null,
+  removeComponentFromPagesArray: null
 }
-Question.propTypes = {
+Page.propTypes = {
   id: PropTypes.string.isRequired,
   visible: PropTypes.bool,
   incrementQuestions: PropTypes.func.isRequired,
   decrementQuestions: PropTypes.func.isRequired,
-  addComponentToQuestionsArray: PropTypes.func,
-  removeComponentFromQuestionsArray: PropTypes.func,
+  addComponentToPagesArray: PropTypes.func,
+  removeComponentFromPagesArray: PropTypes.func,
   children: PropTypes.node.isRequired
 }
 
-export default Question
+export default Page

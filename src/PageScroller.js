@@ -1,24 +1,24 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import scrollIt from './vendor/scrollIt'
-import Question from './Question'
+import Page from './Page'
 
-class QuestionScroller extends Component {
+class PageScroller extends Component {
   constructor(props) {
     super(props)
     this.state = {
       counter: 1,
-      visibleQuestionsArr: ['Q1']
+      visiblePagesArr: ['Q1']
     }
     this.incrementQuestions = this.incrementQuestions.bind(this)
     this.decrementQuestions = this.decrementQuestions.bind(this)
   }
 
   componentWillReceiveProps(newProps) {
-    if (this.props.updatedVisibleQuestion !== newProps.updatedVisibleQuestion) {
+    if (this.props.updatedVisiblePage !== newProps.updatedVisiblePage) {
       this.setState({
-        counter: newProps.updatedVisibleQuestion,
-        visibleQuestionsArr: [`Q${newProps.updatedVisibleQuestion}`]
+        counter: newProps.updatedVisiblePage,
+        visiblePagesArr: [`Q${newProps.updatedVisiblePage}`]
       })
     }
   }
@@ -28,33 +28,33 @@ class QuestionScroller extends Component {
     return document.querySelector(selector)
   }
 
-  updatedVisibleQuestionsArr(action) {
-    console.log('updatedVisibleQuestionsArr')
-    const visibleQuestionsArr = this.state.visibleQuestionsArr
-    const questionsArrLen = this.props.questions.length
-    let questionToAdd = null
+  updatedVisiblePagesArr(action) {
+    console.log('updatedVisiblePagesArr')
+    const visiblePagesArr = this.state.visiblePagesArr
+    const pagesArrLen = this.props.pages.length
+    let pageToAdd = null
     if (action === '+') {
       // check if action was a plus (increment)
-      if (this.state.counter + 1 <= questionsArrLen) {
+      if (this.state.counter + 1 <= pagesArrLen) {
         // if allowed create a new question id string to add to questionsArr
-        questionToAdd = `Q${this.state.counter + 1}`
+        pageToAdd = `Q${this.state.counter + 1}`
       }
     } else if (this.state.counter - 1 >= 1) {
       // if action was a minus (decrement)
-      questionToAdd = `Q${this.state.counter - 1}`
+      pageToAdd = `Q${this.state.counter - 1}`
     }
     // if not null add the question ID to the array and return
-    if (questionToAdd !== null) return [...visibleQuestionsArr, questionToAdd]
+    if (pageToAdd !== null) return [...visiblePagesArr, pageToAdd]
     return false
   }
 
   removeFromVisibleArray(toDelete) {
     console.log('removeFromVisibleArray')
-    const visibleQuestionsArr = this.state.visibleQuestionsArr
-    const newVisibleQuestionsArr = visibleQuestionsArr.filter(questionId => {
-      return questionId !== toDelete
+    const visiblePagesArr = this.state.visiblePagesArr
+    const newVisiblePagesArr = visiblePagesArr.filter(pageId => {
+      return pageId !== toDelete
     })
-    this.setState({ visibleQuestionsArr: newVisibleQuestionsArr }, () => {
+    this.setState({ visiblePagesArr: newVisiblePagesArr }, () => {
       console.log(this.state)
     })
   }
@@ -62,19 +62,19 @@ class QuestionScroller extends Component {
   incrementQuestions() {
     console.log('incrementQuestions')
     // push next question to visible arr, in <Question> check if in array
-    if (this.updatedVisibleQuestionsArr('+')) {
+    if (this.updatedVisiblePagesArr('+')) {
       const scrollTo = this.getNextQuestion('+')
-      this.setState({ visibleQuestionsArr: this.updatedVisibleQuestionsArr('+') }, () => {
+      this.setState({ visiblePagesArr: this.updatedVisiblePagesArr('+') }, () => {
         // Scroll to next Question
-        this.animateQuestion(scrollTo, this.state.counter + 1)
+        this.animatePage(scrollTo, this.state.counter + 1)
       })
     }
   }
   decrementQuestions() {
     console.log('decrementQuestions')
-    if (this.updatedVisibleQuestionsArr('-')) {
+    if (this.updatedVisiblePagesArr('-')) {
       const scrollTo = this.getNextQuestion('-')
-      this.setState({ visibleQuestionsArr: this.updatedVisibleQuestionsArr('-') }, () => {
+      this.setState({ visiblePagesArr: this.updatedVisiblePagesArr('-') }, () => {
         /* when you mount a question in the DOM above the current question it pushes
            the current question underneath in the page so the new question appears at top
            to fix this an offset needs to be applied to the scroll position before animating
@@ -82,12 +82,12 @@ class QuestionScroller extends Component {
         const el = document.querySelector('.question:nth-of-type(1)')
         const offset = el.clientHeight
         window.scroll(0, offset)
-        this.animateQuestion(scrollTo, this.state.counter - 1)
+        this.animatePage(scrollTo, this.state.counter - 1)
       })
     }
   }
 
-  animateQuestion(scrollTo, counterVal) {
+  animatePage(scrollTo, counterVal) {
     const currCounter = this.state.counter
     scrollIt(scrollTo, 500, 'easeOutQuad', () => {
       this.setState({ counter: counterVal })
@@ -104,25 +104,25 @@ class QuestionScroller extends Component {
       test functions to add/remove components from the DOM set in App.js
     */
     const {
-      addComponentToQuestionsArray,
-      removeComponentFromQuestionsArray
+      addComponentToPagesArray,
+      removeComponentFromPagesArray
     } = this.props
     return (
       <div className="questionScroller">
-        {this.props.questions.map((QuestionComponent, index) => {
-          const isVisible = !!this.state.visibleQuestionsArr.includes(`Q${index + 1}`)
+        {this.props.pages.map((PageComponent, index) => {
+          const isVisible = !!this.state.visiblePagesArr.includes(`Q${index + 1}`)
           return (
-            <Question
+            <Page
               id={`Q${index + 1}`}
               key={`Q${index + 1}`}
               visible={isVisible}
               incrementQuestions={this.incrementQuestions}
               decrementQuestions={this.decrementQuestions}
-              addComponentToQuestionsArray={addComponentToQuestionsArray}
-              removeComponentFromQuestionsArray={(componentId) => removeComponentFromQuestionsArray(componentId)}
+              addComponentToPagesArray={addComponentToPagesArray}
+              removeComponentFromPagesArray={(componentId) => removeComponentFromPagesArray(componentId)}
             >
-              <QuestionComponent />
-            </Question>
+              <PageComponent />
+            </Page>
           )
         })}
       </div>
@@ -130,14 +130,14 @@ class QuestionScroller extends Component {
   }
 }
 
-QuestionScroller.defaultProps = {
-  updatedVisibleQuestion: null
+PageScroller.defaultProps = {
+  updatedVisiblePage: null
 }
-QuestionScroller.propTypes = {
-  questions: PropTypes.arrayOf(PropTypes.func).isRequired,
-  updatedVisibleQuestion: PropTypes.number,
-  addComponentToQuestionsArray: PropTypes.func,
-  removeComponentFromQuestionsArray: PropTypes.func
+PageScroller.propTypes = {
+  pages: PropTypes.arrayOf(PropTypes.func).isRequired,
+  updatedVisiblePage: PropTypes.number,
+  addComponentToPagesArray: PropTypes.func,
+  removeComponentFromPagesArray: PropTypes.func
 }
 
-export default QuestionScroller
+export default PageScroller

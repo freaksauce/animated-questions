@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import logo from './logo.svg'
 import './App.css'
 
-import QuestionScroller from './QuestionScroller'
+import PageScroller from './PageScroller'
 import Component1 from './Component1'
 import Component2 from './Component2'
 import Component3 from './Component3'
@@ -11,35 +11,35 @@ import Component4 from './Component4'
 class App extends Component {
   constructor(props) {
     super(props)
-    this.addComponentToQuestionsArray = this.addComponentToQuestionsArray.bind(this)
-    this.removeComponentFromQuestionsArray = this.removeComponentFromQuestionsArray.bind(this)
+    this.addComponentToPagesArray = this.addComponentToPagesArray.bind(this)
+    this.removeComponentFromPagesArray = this.removeComponentFromPagesArray.bind(this)
   }
   state = {
-    questionsArray: [Component1, Component2, Component3],
-    updatedVisibleQuestion: null
+    pagesArray: [Component1, Component2, Component3],
+    updatedVisiblePage: null
   }
   /*
     functions to test that updating the questions array passed into the QuestionScroller
     actually updated the DOM correctly
   */
   // addComponentToQuestionsArray(componentToAdd) {
-  addComponentToQuestionsArray() {
+  addComponentToPagesArray() {
     console.log('addComponentToQuestionsArray')
     const componentToAdd = Component4
-    const updatedQuestionsArray = [...this.state.questionsArray, componentToAdd]
-    this.setState({ questionsArray: updatedQuestionsArray })
+    const updatedPagesArray = [...this.state.pagesArray, componentToAdd]
+    this.setState({ pagesArray: updatedPagesArray })
   }
-  removeComponentFromQuestionsArray(componentIndex) {
-    const { questionsArray } = this.state
+  removeComponentFromPagesArray(componentIndex) {
+    const { pagesArray } = this.state
     // remove the component from DOM via the questionsArray
-    const updatedQuestionsArray = [
-      ...questionsArray.slice(0, componentIndex - 1),
-      ...questionsArray.slice(componentIndex)
+    const updatedPagesArray = [
+      ...pagesArray.slice(0, componentIndex - 1),
+      ...pagesArray.slice(componentIndex)
     ]
-    console.log(updatedQuestionsArray)
+    console.log(updatedPagesArray)
     this.setState({
-      questionsArray: updatedQuestionsArray,
-      updatedVisibleQuestion: updatedQuestionsArray.length
+      pagesArray: updatedPagesArray,
+      updatedVisiblePage: updatedPagesArray.length
     }, () => {
       console.log(this.state)
     })
@@ -52,11 +52,11 @@ class App extends Component {
           <h2>Welcome to React</h2>
         </div>
         <div className="App-content">
-          <QuestionScroller
-            questions={this.state.questionsArray}
-            updatedVisibleQuestion={this.state.updatedVisibleQuestion}
-            addComponentToQuestionsArray={this.addComponentToQuestionsArray}
-            removeComponentFromQuestionsArray={this.removeComponentFromQuestionsArray}
+          <PageScroller
+            pages={this.state.pagesArray}
+            updatedVisiblePage={this.state.updatedVisiblePage}
+            addComponentToPagesArray={this.addComponentToPagesArray}
+            removeComponentFromPagesArray={this.removeComponentFromPagesArray}
           />
         </div>
       </div>
