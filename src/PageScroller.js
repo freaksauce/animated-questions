@@ -79,7 +79,7 @@ class PageScroller extends Component {
            the current question underneath in the page so the new question appears at top
            to fix this an offset needs to be applied to the scroll position before animating
         */
-        const el = document.querySelector('.question:nth-of-type(1)')
+        const el = document.querySelector(`.question:nth-of-type(${this.state.counter - 1})`)
         const offset = el.clientHeight
         window.scroll(0, offset)
         this.animatePage(scrollTo, this.state.counter - 1)

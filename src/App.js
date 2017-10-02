@@ -41,7 +41,7 @@ class App extends Component {
       pagesArray: updatedPagesArray,
       updatedVisiblePage: updatedPagesArray.length
     }, () => {
-      console.log(this.state)
+      console.log('removeComponentFromPagesArray', this.state)
     })
   }
   render() {
