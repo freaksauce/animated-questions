@@ -39,7 +39,6 @@ class Page extends Component {
   }
 
   render() {
-    console.log('pageStyles', this.pageStyles);
     return (
       <div className="SPS__page" id={this.props.id}>
         {this.props.visible && (
