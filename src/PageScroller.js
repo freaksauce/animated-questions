@@ -98,7 +98,7 @@ class PageScroller extends Component {
       console.log('Q to remove', `Q${currCounter}`)
       // delete current from visible array
       this.removeFromVisibleArray(`Q${currCounter}`)
-    })
+    }, 200)
   }
 
   render() {

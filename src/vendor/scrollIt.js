@@ -6,7 +6,7 @@
  * @param {function} callback - Optional callback invoked after animation
  * @author - https://codepen.io/pawelgrzybek/pen/ZeomJB
  */
-export default function scrollIt(destination, duration = 200, easing = 'linear', callback) {
+export default function scrollIt(destination, duration = 200, easing = 'linear', callback, myOffsetTop) {
   // Predefine list of available timing functions
   // If you need more, tween js is full of great examples
   // https://github.com/tweenjs/tween.js/blob/master/src/Tween.js#L421-L737
@@ -66,7 +66,7 @@ export default function scrollIt(destination, duration = 200, easing = 'linear',
   // Resolve destination type (node or number)
   const documentHeight = Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight)
   const windowHeight = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight
-  let destinationOffset = typeof destination === 'number' ? destination : destination.offsetTop - 200
+  let destinationOffset = typeof destination === 'number' ? destination : destination.offsetTop - myOffsetTop
   if (destinationOffset < 0) destinationOffset = 0
   const destinationOffsetToScroll = Math.round(documentHeight - destinationOffset < windowHeight ? documentHeight - windowHeight : destinationOffset)
 
