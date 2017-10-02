@@ -11,6 +11,15 @@ class Page extends Component {
     this.onBack = this.onBack.bind(this)
     this.addQuestion = this.addQuestion.bind(this)
     this.removeQuestion = this.removeQuestion.bind(this)
+
+    this.pageStyles = {
+      page__inner: {
+        width: '100%',
+        height: 'calc(100vh - 190px)',
+        transition: 'all .8s ease-in-out',
+        background: '#ccc'
+      }
+    }
   }
 
   onNext() {
@@ -30,10 +39,11 @@ class Page extends Component {
   }
 
   render() {
+    console.log('pageStyles', this.pageStyles);
     return (
-      <div className="question" id={this.props.id}>
+      <div className="SPS__page" id={this.props.id}>
         {this.props.visible && (
-          <div className="question__inner">
+          <div className="SPS__page__inner" style={this.pageStyles.page__inner}>
             {React.cloneElement(this.props.children, {
               extraClasses: this.state.extraClasses,
               onNext: this.onNext,

@@ -36,17 +36,7 @@ body.hideScrollbars {
 .App-content {
   margin-top: 190px;
 }
-.question {
-
-}
-
-.question__inner {
-  width: 100%;
-  height: calc(100vh - 190px);
-  transition: all .8s ease-in-out;
-  background: #ccc;
-}
-.question__inner label {
+.SPS__page__inner label {
   display: block;
   padding: 20px 0;
 }
