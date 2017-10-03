@@ -10,8 +10,8 @@ class PageScroller extends Component {
       counter: 1,
       visiblePagesArr: ['Q1']
     }
-    this.incrementQuestions = this.incrementQuestions.bind(this)
-    this.decrementQuestions = this.decrementQuestions.bind(this)
+    this.incrementPage = this.incrementPage.bind(this)
+    this.decrementPage = this.decrementPage.bind(this)
     this.goToPage = this.goToPage.bind(this)
   }
 
@@ -27,18 +27,17 @@ class PageScroller extends Component {
   /**
    * check which direction the page needs to animate (up/down) and get the selector of the "next" component
    */
-  getNextPage(action) {
-    const selector = action === 'up' ? `.SPS__page:nth-of-type(${this.state.counter + 1})` : `.SPS__page:nth-of-type(${this.state.counter - 1})`
+  getNextPage(direction) {
+    const selector = direction === 'up' ? `.SPS__page:nth-of-type(${this.state.counter + 1})` : `.SPS__page:nth-of-type(${this.state.counter - 1})`
     return document.querySelector(selector)
   }
 
   /**
    * Force animate to a specific page without seeing any other pages animate, this is possible due to all questions being unmounted on complete
    */
-  goToPage(pageNumber = null, direction) {
-    console.log('goToPage', pageNumber, direction)
+  goToPage(pageNumber = null, direction = 'up') {
     const selector = `.SPS__page:nth-of-type(${pageNumber})`
-    this.setState({ visiblePagesArr: this.updatedVisiblePagesArr(action, pageNumber) }, () => {
+    this.setState({ visiblePagesArr: this.updatedVisiblePagesArr(direction, pageNumber) }, () => {
       // Scroll to next page
       const el = document.querySelector(selector)
       if (direction === 'up') {
@@ -49,22 +48,22 @@ class PageScroller extends Component {
     })
   }
 
-  updatedVisiblePagesArr(direction, pageNumber) {
+  updatedVisiblePagesArr(direction = 'up', pageNumber) {
     // console.log('updatedVisiblePagesArr', direction, pageNumber)
     const visiblePagesArr = this.state.visiblePagesArr
     const pagesArrLen = this.props.pages.length
     let pageToAdd = null
-    if (direction && direction === 'up') {
+    if (pageNumber) {
+      pageToAdd = `Q${pageNumber}`
+    } else if (direction && direction === 'up') {
       // check if direction was up (increment)
       if (this.state.counter + 1 <= pagesArrLen) {
         // if allowed create a new page id string to add to questionsArr
         pageToAdd = `Q${this.state.counter + 1}`
       }
-    } else if (direction && this.state.counter - 1 >= 1) {
+    } else if (direction && direction === 'down' && this.state.counter - 1 >= 1) {
       // if direction was down (decrement)
       pageToAdd = `Q${this.state.counter - 1}`
-    } else if (pageNumber) {
-      pageToAdd = `Q${pageNumber}`
     }
     // if not null add the page ID to the array and return
     if (pageToAdd !== null) return [...visiblePagesArr, pageToAdd]
@@ -83,7 +82,7 @@ class PageScroller extends Component {
   }
 
   incrementPage() {
-    // console.log('incrementQuestions')
+    // console.log('incrementPage')
     // push next page to visible arr, in <Page> check if in array
     if (this.updatedVisiblePagesArr('up')) {
       const scrollTo = this.getNextPage('up')
@@ -94,7 +93,7 @@ class PageScroller extends Component {
     }
   }
   decrementPage() {
-    // console.log('decrementQuestions')
+    // console.log('decrementPage')
     if (this.updatedVisiblePagesArr('down')) {
       const scrollTo = this.getNextPage('down')
       this.setState({ visiblePagesArr: this.updatedVisiblePagesArr('down') }, () => {
@@ -111,7 +110,6 @@ class PageScroller extends Component {
   }
 
   animatePage(scrollTo, counterVal) {
-    console.log('scrollTo', scrollTo, counterVal)
     const currCounter = this.state.counter
     scrollIt(scrollTo, 500, 'easeOutQuad', () => {
       this.setState({ counter: counterVal })
@@ -141,7 +139,7 @@ class PageScroller extends Component {
               visible={isVisible}
               goToPage={(pageNumber) => this.goToPage(pageNumber)}
               incrementPage={this.incrementPage}
-              decrementPage={this.incrementPage}
+              decrementPage={this.decrementPage}
               addComponentToPagesArray={addComponentToPagesArray}
               removeComponentFromPagesArray={(componentId) => removeComponentFromPagesArray(componentId)}
             >

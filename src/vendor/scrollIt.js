@@ -64,11 +64,17 @@ export default function scrollIt(destination, duration = 200, easing = 'linear',
   // Take height of window and document to sesolve max scrollable value
   // Prevent requestAnimationFrame() from scrolling below maximum scollable value
   // Resolve destination type (node or number)
-  const documentHeight = Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight)
+  const documentHeight = Math.max(document.body.scrollHeight,
+    document.body.offsetHeight,
+    document.documentElement.clientHeight,
+    document.documentElement.scrollHeight,
+    document.documentElement.offsetHeight)
+
   const windowHeight = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight
   let destinationOffset = typeof destination === 'number' ? destination : destination.offsetTop - myOffsetTop
   if (destinationOffset < 0) destinationOffset = 0
   const destinationOffsetToScroll = Math.round(documentHeight - destinationOffset < windowHeight ? documentHeight - windowHeight : destinationOffset)
+  console.log(destinationOffsetToScroll);
 
   // If requestAnimationFrame is not supported
   // Move window to destination position and trigger callback function
