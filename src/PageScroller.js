@@ -28,17 +28,17 @@ class PageScroller extends Component {
    * check which direction the page needs to animate (up/down) and get the selector of the "next" component
    */
   getNextPage(action) {
-    const selector = action === '+' ? `.SPS__page:nth-of-type(${this.state.counter + 1})` : `.SPS__page:nth-of-type(${this.state.counter - 1})`
+    const selector = action === 'up' ? `.SPS__page:nth-of-type(${this.state.counter + 1})` : `.SPS__page:nth-of-type(${this.state.counter - 1})`
     return document.querySelector(selector)
   }
 
   /**
    * Force animate to a specific page without seeing any other pages animate, this is possible due to all questions being unmounted on complete
    */
-  goToPage(pageNumber, direction) {
-    console.log('goToPage', pageNumber)
+  goToPage(pageNumber = null, direction) {
+    console.log('goToPage', pageNumber, direction)
     const selector = `.SPS__page:nth-of-type(${pageNumber})`
-    this.setState({ visiblePagesArr: this.updatedVisiblePagesArr(null, pageNumber) }, () => {
+    this.setState({ visiblePagesArr: this.updatedVisiblePagesArr(action, pageNumber) }, () => {
       // Scroll to next page
       const el = document.querySelector(selector)
       if (direction === 'up') {
@@ -49,19 +49,19 @@ class PageScroller extends Component {
     })
   }
 
-  updatedVisiblePagesArr(action, pageNumber) {
-    // console.log('updatedVisiblePagesArr', action, pageNumber)
+  updatedVisiblePagesArr(direction, pageNumber) {
+    // console.log('updatedVisiblePagesArr', direction, pageNumber)
     const visiblePagesArr = this.state.visiblePagesArr
     const pagesArrLen = this.props.pages.length
     let pageToAdd = null
-    if (action && action === '+') {
-      // check if action was a plus (increment)
+    if (direction && direction === 'up') {
+      // check if direction was up (increment)
       if (this.state.counter + 1 <= pagesArrLen) {
         // if allowed create a new page id string to add to questionsArr
         pageToAdd = `Q${this.state.counter + 1}`
       }
-    } else if (action && this.state.counter - 1 >= 1) {
-      // if action was a minus (decrement)
+    } else if (direction && this.state.counter - 1 >= 1) {
+      // if direction was down (decrement)
       pageToAdd = `Q${this.state.counter - 1}`
     } else if (pageNumber) {
       pageToAdd = `Q${pageNumber}`
@@ -85,9 +85,9 @@ class PageScroller extends Component {
   incrementPage() {
     // console.log('incrementQuestions')
     // push next page to visible arr, in <Page> check if in array
-    if (this.updatedVisiblePagesArr('+')) {
-      const scrollTo = this.getNextPage('+')
-      this.setState({ visiblePagesArr: this.updatedVisiblePagesArr('+') }, () => {
+    if (this.updatedVisiblePagesArr('up')) {
+      const scrollTo = this.getNextPage('up')
+      this.setState({ visiblePagesArr: this.updatedVisiblePagesArr('up') }, () => {
         // Scroll to next page
         this.animatePage(scrollTo, this.state.counter + 1)
       })
@@ -95,9 +95,9 @@ class PageScroller extends Component {
   }
   decrementPage() {
     // console.log('decrementQuestions')
-    if (this.updatedVisiblePagesArr('-')) {
-      const scrollTo = this.getNextPage('-')
-      this.setState({ visiblePagesArr: this.updatedVisiblePagesArr('-') }, () => {
+    if (this.updatedVisiblePagesArr('down')) {
+      const scrollTo = this.getNextPage('down')
+      this.setState({ visiblePagesArr: this.updatedVisiblePagesArr('down') }, () => {
         /* when you mount a page in the DOM above the current page it pushes
            the current page underneath in the page so the new page appears at top
            to fix this an offset needs to be applied to the scroll position before animating
