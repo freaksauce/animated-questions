@@ -1,20 +1,18 @@
 import React from 'react'
 import { configure, shallow, mount } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import sinon from 'sinon'
 
 import PageScroller from '../PageScroller'
 import Page from '../Page'
 import Component1 from '../Component1'
 import Component2 from '../Component2'
 import Component3 from '../Component3'
-import Component4 from '../Component4'
 
 configure({ adapter: new Adapter() })
 
-const shallowRender = shallow(<PageScroller pages={[Component1, Component3, Component2, Component4]} />)
-const mountComponent1 = mount(<PageScroller pages={[Component1, Component2, Component3, Component4]} />)
-const mountComponent2 = mount(<PageScroller pages={[Component3, Component1, Component2, Component4]} />)
+const shallowRender = shallow(<PageScroller pages={[Component1, Component3, Component2]} />)
+const mountComponent1 = mount(<PageScroller pages={[Component1, Component2, Component3]} />)
+const mountComponent2 = mount(<PageScroller pages={[Component3, Component1, Component2]} />)
 
 describe('<PageScroller />', () => {
   it('should render a PageScroller component', () => {

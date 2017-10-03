@@ -4,7 +4,7 @@ src/vendor/*
 **/assets/*
 /yarn-error.log
 /yarn.lock
-registerServiceWorker.js
+src/registerServiceWorker.js
 tests/*
 
 REACTINIT-README.md
