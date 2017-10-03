@@ -10,8 +10,6 @@ class Page extends Component {
     this.onNext = this.onNext.bind(this)
     this.onBack = this.onBack.bind(this)
     this.onGoToPage = this.onGoToPage.bind(this)
-    this.addQuestion = this.addQuestion.bind(this)
-    this.removeQuestion = this.removeQuestion.bind(this)
 
     this.pageStyles = {
       page__inner: {
@@ -24,23 +22,13 @@ class Page extends Component {
   }
 
   onNext() {
-    // console.log('onNext')
     this.props.incrementPage()
   }
   onBack() {
-    // console.log('onBack')
     this.props.decrementPage()
   }
   onGoToPage(pageNumber) {
-    // console.log('onGoToPage', pageNumber)
     this.props.goToPage(pageNumber)
-  }
-  addQuestion() {
-    this.props.addComponentToPagesArray()
-  }
-  removeQuestion(componentIndex) {
-    // console.log('removeQuestion', componentIndex)
-    this.props.removeComponentFromPagesArray(componentIndex)
   }
 
   render() {
@@ -52,9 +40,7 @@ class Page extends Component {
               extraClasses: this.state.extraClasses,
               onNext: this.onNext,
               onBack: this.onBack,
-              onGoToPage: this.onGoToPage,
-              addQuestion: this.addQuestion,
-              removeQuestion: this.removeQuestion
+              onGoToPage: this.onGoToPage
             })}
           </div>
         )}
@@ -75,8 +61,6 @@ Page.propTypes = {
   incrementPage: PropTypes.func.isRequired,
   decrementPage: PropTypes.func.isRequired,
   goToPage: PropTypes.func,
-  addComponentToPagesArray: PropTypes.func,
-  removeComponentFromPagesArray: PropTypes.func,
   children: PropTypes.node.isRequired
 }
 

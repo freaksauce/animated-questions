@@ -22,9 +22,8 @@ class App extends Component {
     functions to test that updating the questions array passed into the QuestionScroller
     actually updated the DOM correctly
   */
-  // addComponentToQuestionsArray(componentToAdd) {
+  /*
   addComponentToPagesArray() {
-    console.log('addComponentToQuestionsArray')
     const componentToAdd = Component4
     const updatedPagesArray = [...this.state.pagesArray, componentToAdd]
     this.setState({ pagesArray: updatedPagesArray })
@@ -36,7 +35,6 @@ class App extends Component {
       ...pagesArray.slice(0, componentIndex - 1),
       ...pagesArray.slice(componentIndex)
     ]
-    console.log(updatedPagesArray)
     this.setState({
       pagesArray: updatedPagesArray,
       updatedVisiblePage: updatedPagesArray.length
@@ -44,6 +42,8 @@ class App extends Component {
       console.log('removeComponentFromPagesArray', this.state)
     })
   }
+  */
+
   render() {
     return (
       <div className="App">

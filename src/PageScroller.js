@@ -15,6 +15,9 @@ class PageScroller extends Component {
     this.goToPage = this.goToPage.bind(this)
   }
 
+  /**
+   * if a component is removed from the pages array prop force the state to update
+   */
   componentWillReceiveProps(newProps) {
     if (this.props.updatedVisiblePage !== newProps.updatedVisiblePage) {
       this.setState({
@@ -48,8 +51,13 @@ class PageScroller extends Component {
     })
   }
 
+  /**
+    * create a new copy of the state.visiblePagesArr
+    * direction will increment or decrement the counter
+    * pageNumber is used when navigating to an arbitrary page
+    * adding to the visiblePagesArr will mount the component in the DOM
+    */
   updatedVisiblePagesArr(direction = 'up', pageNumber) {
-    // console.log('updatedVisiblePagesArr', direction, pageNumber)
     const visiblePagesArr = this.state.visiblePagesArr
     const pagesArrLen = this.props.pages.length
     let pageToAdd = null
@@ -70,8 +78,11 @@ class PageScroller extends Component {
     return false
   }
 
+  /**
+    * create a new copy of the state.visiblePagesArr
+    * remove a page from visiblePagesArr to unmount from the DOM
+    */
   removeFromVisiblePagesArray(toDelete) {
-    // console.log('removeFromVisiblePagesArray')
     const visiblePagesArr = this.state.visiblePagesArr
     const newVisiblePagesArr = visiblePagesArr.filter(pageId => {
       return pageId !== toDelete
@@ -82,7 +93,6 @@ class PageScroller extends Component {
   }
 
   incrementPage() {
-    // console.log('incrementPage')
     // push next page to visible arr, in <Page> check if in array
     if (this.updatedVisiblePagesArr('up')) {
       const scrollTo = this.getNextPage('up')
@@ -93,7 +103,6 @@ class PageScroller extends Component {
     }
   }
   decrementPage() {
-    // console.log('decrementPage')
     if (this.updatedVisiblePagesArr('down')) {
       const scrollTo = this.getNextPage('down')
       this.setState({ visiblePagesArr: this.updatedVisiblePagesArr('down') }, () => {
@@ -109,25 +118,19 @@ class PageScroller extends Component {
     }
   }
 
+  /**
+   * pass in a DOM element to animate to, update counter to set current page index
+   */
   animatePage(scrollTo, counterVal) {
     const currCounter = this.state.counter
     scrollIt(scrollTo, 500, 'easeOutQuad', () => {
       this.setState({ counter: counterVal })
-      // console.log(`Just finished scrolling to ${window.pageYOffset}px`)
-      // console.log('Q to remove', `Q${currCounter}`)
-      // delete current from visible array
+      // delete current from visible array to unmount from DOM
       this.removeFromVisiblePagesArray(`Q${currCounter}`)
     }, 200)
   }
 
   render() {
-    /*
-      test functions to add/remove components from the DOM set in App.js
-    */
-    const {
-      addComponentToPagesArray,
-      removeComponentFromPagesArray
-    } = this.props
     return (
       <div className="questionScroller">
         {this.props.pages.map((PageComponent, index) => {
@@ -140,8 +143,6 @@ class PageScroller extends Component {
               goToPage={(pageNumber) => this.goToPage(pageNumber)}
               incrementPage={this.incrementPage}
               decrementPage={this.decrementPage}
-              addComponentToPagesArray={addComponentToPagesArray}
-              removeComponentFromPagesArray={(componentId) => removeComponentFromPagesArray(componentId)}
             >
               <PageComponent />
             </Page>
@@ -153,15 +154,11 @@ class PageScroller extends Component {
 }
 
 PageScroller.defaultProps = {
-  updatedVisiblePage: null,
-  addComponentToPagesArray: null,
-  removeComponentFromPagesArray: null
+  updatedVisiblePage: null
 }
 PageScroller.propTypes = {
   pages: PropTypes.arrayOf(PropTypes.func).isRequired,
-  updatedVisiblePage: PropTypes.number,
-  addComponentToPagesArray: PropTypes.func,
-  removeComponentFromPagesArray: PropTypes.func
+  updatedVisiblePage: PropTypes.number
 }
 
 export default PageScroller
