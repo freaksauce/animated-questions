@@ -113,8 +113,8 @@ class PageScroller extends Component {
     const currCounter = this.state.counter
     scrollIt(scrollTo, 500, 'easeOutQuad', () => {
       this.setState({ counter: counterVal })
-      console.log(`Just finished scrolling to ${window.pageYOffset}px`)
-      console.log('Q to remove', `Q${currCounter}`)
+      // console.log(`Just finished scrolling to ${window.pageYOffset}px`)
+      // console.log('Q to remove', `Q${currCounter}`)
       // delete current from visible array
       this.removeFromVisiblePagesArray(`Q${currCounter}`)
     }, 200)
