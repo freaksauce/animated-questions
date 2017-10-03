@@ -6,7 +6,6 @@ import PageScroller from './PageScroller'
 import Component1 from './Component1'
 import Component2 from './Component2'
 import Component3 from './Component3'
-import Component4 from './Component4'
 
 class App extends Component {
   constructor(props) {
