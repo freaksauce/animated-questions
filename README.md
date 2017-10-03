@@ -17,3 +17,25 @@ PageScroller.propTypes = {
   removeComponentFromPagesArray: PropTypes.func
 }
 ```
+
+### Simple example
+```
+import React, { Component } from 'react'
+
+import PageScroller from './PageScroller'
+import Component1 from './Component1'
+import Component2 from './Component2'
+import Component3 from './Component3'
+
+class App extends Component {
+  state = {
+    pagesArray: [Component1, Component2, Component3]
+  }
+
+  render() {
+    return (
+      <PageScroller pages={this.state.pagesArray} />
+    )
+  }
+}
+```
