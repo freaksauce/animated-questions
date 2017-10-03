@@ -74,8 +74,7 @@ export default function scrollIt(destination, duration = 200, easing = 'linear',
   let destinationOffset = typeof destination === 'number' ? destination : destination.offsetTop - myOffsetTop
   if (destinationOffset < 0) destinationOffset = 0
   const destinationOffsetToScroll = Math.round(documentHeight - destinationOffset < windowHeight ? documentHeight - windowHeight : destinationOffset)
-  console.log(destinationOffsetToScroll);
-
+  
   // If requestAnimationFrame is not supported
   // Move window to destination position and trigger callback function
   if ('requestAnimationFrame' in window === false) {
