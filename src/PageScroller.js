@@ -12,6 +12,7 @@ class PageScroller extends Component {
     }
     this.incrementQuestions = this.incrementQuestions.bind(this)
     this.decrementQuestions = this.decrementQuestions.bind(this)
+    this.goToPage = this.goToPage.bind(this)
   }
 
   componentWillReceiveProps(newProps) {
@@ -25,32 +26,42 @@ class PageScroller extends Component {
 
   getNextPage(action) {
     const selector = action === '+' ? `.SPS__page:nth-of-type(${this.state.counter + 1})` : `.SPS__page:nth-of-type(${this.state.counter - 1})`
-    console.log('selector', selector)
     return document.querySelector(selector)
   }
 
-  updatedVisiblePagesArr(action) {
-    console.log('updatedVisiblePagesArr', action)
+  goToPage(pageNumber) {
+    console.log('goToPage', pageNumber)
+    const selector = `.SPS__page:nth-of-type(${pageNumber})`
+    this.setState({ visiblePagesArr: this.updatedVisiblePagesArr(null, pageNumber) }, () => {
+      // Scroll to next page
+      this.animatePage(document.querySelector(selector), pageNumber)
+    })
+  }
+
+  updatedVisiblePagesArr(action, pageNumber) {
+    console.log('updatedVisiblePagesArr', action, pageNumber)
     const visiblePagesArr = this.state.visiblePagesArr
     const pagesArrLen = this.props.pages.length
     let pageToAdd = null
-    if (action === '+') {
+    if (action && action === '+') {
       // check if action was a plus (increment)
       if (this.state.counter + 1 <= pagesArrLen) {
         // if allowed create a new page id string to add to questionsArr
         pageToAdd = `Q${this.state.counter + 1}`
       }
-    } else if (this.state.counter - 1 >= 1) {
+    } else if (action && this.state.counter - 1 >= 1) {
       // if action was a minus (decrement)
       pageToAdd = `Q${this.state.counter - 1}`
+    } else if (pageNumber) {
+      pageToAdd = `Q${pageNumber}`
     }
     // if not null add the page ID to the array and return
     if (pageToAdd !== null) return [...visiblePagesArr, pageToAdd]
     return false
   }
 
-  removeFromVisibleArray(toDelete) {
-    console.log('removeFromVisibleArray')
+  removeFromVisiblePagesArray(toDelete) {
+    console.log('removeFromVisiblePagesArray')
     const visiblePagesArr = this.state.visiblePagesArr
     const newVisiblePagesArr = visiblePagesArr.filter(pageId => {
       return pageId !== toDelete
@@ -65,7 +76,6 @@ class PageScroller extends Component {
     // push next page to visible arr, in <Page> check if in array
     if (this.updatedVisiblePagesArr('+')) {
       const scrollTo = this.getNextPage('+')
-      console.log('incrementQuestions scrollTo', scrollTo)
       this.setState({ visiblePagesArr: this.updatedVisiblePagesArr('+') }, () => {
         // Scroll to next page
         this.animatePage(scrollTo, this.state.counter + 1)
@@ -91,13 +101,13 @@ class PageScroller extends Component {
 
   animatePage(scrollTo, counterVal) {
     const currCounter = this.state.counter
-    console.log('scrollTo', scrollTo);
+    console.log('scrollTo', scrollTo, counterVal)
     scrollIt(scrollTo, 500, 'easeOutQuad', () => {
       this.setState({ counter: counterVal })
       console.log(`Just finished scrolling to ${window.pageYOffset}px`)
       console.log('Q to remove', `Q${currCounter}`)
       // delete current from visible array
-      this.removeFromVisibleArray(`Q${currCounter}`)
+      this.removeFromVisiblePagesArray(`Q${currCounter}`)
     }, 200)
   }
 
@@ -119,6 +129,7 @@ class PageScroller extends Component {
               id={`Q${index + 1}`}
               key={`Q${index + 1}`}
               visible={isVisible}
+              goToPage={(pageNumber) => this.goToPage(pageNumber)}
               incrementQuestions={this.incrementQuestions}
               decrementQuestions={this.decrementQuestions}
               addComponentToPagesArray={addComponentToPagesArray}

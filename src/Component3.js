@@ -7,12 +7,14 @@ const Component3 = props => (
     <input id="input3" className="question__input" value="" type="text" />
     <button className="question__submit" onClick={props.onBack}>Back</button>
     <button className="question__submit" onClick={props.onNext}>Next</button>
+    <button className="question__submit" onClick={() => props.onGoToPage(1)}>Go to page 1</button>
   </div>
 )
 
 Component3.propTypes = {
   onBack: PropTypes.func.isRequired,
-  onNext: PropTypes.func.isRequired
+  onNext: PropTypes.func.isRequired,
+  goToPage: PropTypes.func
 }
 
 export default Component3

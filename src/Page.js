@@ -9,6 +9,7 @@ class Page extends Component {
     }
     this.onNext = this.onNext.bind(this)
     this.onBack = this.onBack.bind(this)
+    this.onGoToPage = this.onGoToPage.bind(this)
     this.addQuestion = this.addQuestion.bind(this)
     this.removeQuestion = this.removeQuestion.bind(this)
 
@@ -30,6 +31,10 @@ class Page extends Component {
     console.log('onBack')
     this.props.decrementQuestions()
   }
+  onGoToPage(pageNumber) {
+    console.log('onGoToPage', pageNumber)
+    this.props.goToPage(pageNumber)
+  }
   addQuestion() {
     this.props.addComponentToPagesArray()
   }
@@ -39,6 +44,7 @@ class Page extends Component {
   }
 
   render() {
+    console.log('PAGE PROPS');
     return (
       <div className="SPS__page" id={this.props.id}>
         {this.props.visible && (
@@ -47,6 +53,7 @@ class Page extends Component {
               extraClasses: this.state.extraClasses,
               onNext: this.onNext,
               onBack: this.onBack,
+              onGoToPage: this.onGoToPage,
               addQuestion: this.addQuestion,
               removeQuestion: this.removeQuestion
             })}
@@ -59,6 +66,7 @@ class Page extends Component {
 
 Page.defaultProps = {
   visible: false,
+  goToPage: null,
   addComponentToPagesArray: null,
   removeComponentFromPagesArray: null
 }
@@ -67,6 +75,7 @@ Page.propTypes = {
   visible: PropTypes.bool,
   incrementQuestions: PropTypes.func.isRequired,
   decrementQuestions: PropTypes.func.isRequired,
+  goToPage: PropTypes.func,
   addComponentToPagesArray: PropTypes.func,
   removeComponentFromPagesArray: PropTypes.func,
   children: PropTypes.node.isRequired
