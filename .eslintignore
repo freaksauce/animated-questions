@@ -3,7 +3,7 @@ public/*
 **/assets/*
 /yarn-error.log
 /yarn.lock
-
+registerServiceWorker.js
 tests/*
 
 REACTINIT-README.md
