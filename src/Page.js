@@ -24,27 +24,26 @@ class Page extends Component {
   }
 
   onNext() {
-    console.log('onNext')
-    this.props.incrementQuestions()
+    // console.log('onNext')
+    this.props.incrementPage()
   }
   onBack() {
-    console.log('onBack')
-    this.props.decrementQuestions()
+    // console.log('onBack')
+    this.props.decrementPage()
   }
   onGoToPage(pageNumber) {
-    console.log('onGoToPage', pageNumber)
+    // console.log('onGoToPage', pageNumber)
     this.props.goToPage(pageNumber)
   }
   addQuestion() {
     this.props.addComponentToPagesArray()
   }
   removeQuestion(componentIndex) {
-    console.log('removeQuestion', componentIndex)
+    // console.log('removeQuestion', componentIndex)
     this.props.removeComponentFromPagesArray(componentIndex)
   }
 
   render() {
-    console.log('PAGE PROPS');
     return (
       <div className="SPS__page" id={this.props.id}>
         {this.props.visible && (
@@ -73,8 +72,8 @@ Page.defaultProps = {
 Page.propTypes = {
   id: PropTypes.string.isRequired,
   visible: PropTypes.bool,
-  incrementQuestions: PropTypes.func.isRequired,
-  decrementQuestions: PropTypes.func.isRequired,
+  incrementPage: PropTypes.func.isRequired,
+  decrementPage: PropTypes.func.isRequired,
   goToPage: PropTypes.func,
   addComponentToPagesArray: PropTypes.func,
   removeComponentFromPagesArray: PropTypes.func,

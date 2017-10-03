@@ -24,22 +24,33 @@ class PageScroller extends Component {
     }
   }
 
+  /**
+   * check which direction the page needs to animate (up/down) and get the selector of the "next" component
+   */
   getNextPage(action) {
     const selector = action === '+' ? `.SPS__page:nth-of-type(${this.state.counter + 1})` : `.SPS__page:nth-of-type(${this.state.counter - 1})`
     return document.querySelector(selector)
   }
 
-  goToPage(pageNumber) {
+  /**
+   * Force animate to a specific page without seeing any other pages animate, this is possible due to all questions being unmounted on complete
+   */
+  goToPage(pageNumber, direction) {
     console.log('goToPage', pageNumber)
     const selector = `.SPS__page:nth-of-type(${pageNumber})`
     this.setState({ visiblePagesArr: this.updatedVisiblePagesArr(null, pageNumber) }, () => {
       // Scroll to next page
-      this.animatePage(document.querySelector(selector), pageNumber)
+      const el = document.querySelector(selector)
+      if (direction === 'up') {
+        const offset = el.clientHeight
+        window.scroll(0, offset)
+      }
+      this.animatePage(el, pageNumber)
     })
   }
 
   updatedVisiblePagesArr(action, pageNumber) {
-    console.log('updatedVisiblePagesArr', action, pageNumber)
+    // console.log('updatedVisiblePagesArr', action, pageNumber)
     const visiblePagesArr = this.state.visiblePagesArr
     const pagesArrLen = this.props.pages.length
     let pageToAdd = null
@@ -61,7 +72,7 @@ class PageScroller extends Component {
   }
 
   removeFromVisiblePagesArray(toDelete) {
-    console.log('removeFromVisiblePagesArray')
+    // console.log('removeFromVisiblePagesArray')
     const visiblePagesArr = this.state.visiblePagesArr
     const newVisiblePagesArr = visiblePagesArr.filter(pageId => {
       return pageId !== toDelete
@@ -71,8 +82,8 @@ class PageScroller extends Component {
     })
   }
 
-  incrementQuestions() {
-    console.log('incrementQuestions')
+  incrementPage() {
+    // console.log('incrementQuestions')
     // push next page to visible arr, in <Page> check if in array
     if (this.updatedVisiblePagesArr('+')) {
       const scrollTo = this.getNextPage('+')
@@ -82,8 +93,8 @@ class PageScroller extends Component {
       })
     }
   }
-  decrementQuestions() {
-    console.log('decrementQuestions')
+  decrementPage() {
+    // console.log('decrementQuestions')
     if (this.updatedVisiblePagesArr('-')) {
       const scrollTo = this.getNextPage('-')
       this.setState({ visiblePagesArr: this.updatedVisiblePagesArr('-') }, () => {
@@ -100,8 +111,8 @@ class PageScroller extends Component {
   }
 
   animatePage(scrollTo, counterVal) {
-    const currCounter = this.state.counter
     console.log('scrollTo', scrollTo, counterVal)
+    const currCounter = this.state.counter
     scrollIt(scrollTo, 500, 'easeOutQuad', () => {
       this.setState({ counter: counterVal })
       console.log(`Just finished scrolling to ${window.pageYOffset}px`)
@@ -112,7 +123,6 @@ class PageScroller extends Component {
   }
 
   render() {
-    console.log(this.state)
     /*
       test functions to add/remove components from the DOM set in App.js
     */
@@ -130,8 +140,8 @@ class PageScroller extends Component {
               key={`Q${index + 1}`}
               visible={isVisible}
               goToPage={(pageNumber) => this.goToPage(pageNumber)}
-              incrementQuestions={this.incrementQuestions}
-              decrementQuestions={this.decrementQuestions}
+              incrementPage={this.incrementPage}
+              decrementPage={this.incrementPage}
               addComponentToPagesArray={addComponentToPagesArray}
               removeComponentFromPagesArray={(componentId) => removeComponentFromPagesArray(componentId)}
             >
