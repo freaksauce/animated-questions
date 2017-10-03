@@ -11,10 +11,15 @@ const Component4 = props => (
   </div>
 )
 
+Component4.defaultProps = {
+  onBack: null,
+  onNext: null,
+  removeQuestion: null
+}
 Component4.propTypes = {
-  onBack: PropTypes.func.isRequired,
-  onNext: PropTypes.func.isRequired,
-  removeQuestion: PropTypes.func.isRequired
+  onBack: PropTypes.func,
+  onNext: PropTypes.func,
+  removeQuestion: PropTypes.func
 }
 
 

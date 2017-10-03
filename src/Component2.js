@@ -18,11 +18,13 @@ const Component2 = props => (
 )
 
 Component2.defaultProps = {
+  onBack: null,
+  onNext: null,
   addQuestion: null
 }
 Component2.propTypes = {
-  onBack: PropTypes.func.isRequired,
-  onNext: PropTypes.func.isRequired,
+  onBack: PropTypes.func,
+  onNext: PropTypes.func,
   addQuestion: PropTypes.func
 }
 

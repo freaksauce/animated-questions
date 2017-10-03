@@ -11,10 +11,15 @@ const Component3 = props => (
   </div>
 )
 
+Component3.defaultProps = {
+  onBack: null,
+  onNext: null,
+  onGoToPage: null
+}
 Component3.propTypes = {
-  onBack: PropTypes.func.isRequired,
-  onNext: PropTypes.func.isRequired,
-  goToPage: PropTypes.func
+  onBack: PropTypes.func,
+  onNext: PropTypes.func,
+  onGoToPage: PropTypes.func
 }
 
 export default Component3

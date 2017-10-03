@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
 const Component1 = props => (
   <div>
@@ -14,9 +13,13 @@ const Component1 = props => (
   </div>
 )
 
+Component1.defaultProps = {
+  onBack: null,
+  onNext: null
+}
 Component1.propTypes = {
-  onBack: PropTypes.func.isRequired,
-  onNext: PropTypes.func.isRequired
+  onBack: PropTypes.func,
+  onNext: PropTypes.func
 }
 
 export default Component1
