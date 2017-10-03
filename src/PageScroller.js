@@ -153,7 +153,9 @@ class PageScroller extends Component {
 }
 
 PageScroller.defaultProps = {
-  updatedVisiblePage: null
+  updatedVisiblePage: null,
+  addComponentToPagesArray: null,
+  removeComponentFromPagesArray: null
 }
 PageScroller.propTypes = {
   pages: PropTypes.arrayOf(PropTypes.func).isRequired,
