@@ -123,7 +123,7 @@ class PageScroller extends Component {
    */
   animatePage(scrollTo, counterVal) {
     const currCounter = this.state.counter
-    scrollIt(scrollTo, 500, 'easeOutQuad', () => {
+    scrollIt(scrollTo, 500, 'easeInOutQuart', () => {
       this.setState({ counter: counterVal })
       // delete current from visible array to unmount from DOM
       this.removeFromVisiblePagesArray(`Q${currCounter}`)

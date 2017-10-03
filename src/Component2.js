@@ -11,21 +11,16 @@ const Component2 = props => (
     <button className="question__submit" onClick={props.onNext}>
       Next
     </button>
-    <button className="question__submit" onClick={props.addQuestion}>
-      Add Question
-    </button>
   </div>
 )
 
 Component2.defaultProps = {
   onBack: null,
-  onNext: null,
-  addQuestion: null
+  onNext: null
 }
 Component2.propTypes = {
   onBack: PropTypes.func,
-  onNext: PropTypes.func,
-  addQuestion: PropTypes.func
+  onNext: PropTypes.func
 }
 
 export default Component2
