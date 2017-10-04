@@ -127,7 +127,7 @@ class PageScroller extends Component {
       this.setState({ counter: counterVal })
       // delete current from visible array to unmount from DOM
       this.removeFromVisiblePagesArray(`Q${currCounter}`)
-    }, 200)
+    }, this.props.myOffsetTop)
   }
 
   render() {
@@ -154,10 +154,12 @@ class PageScroller extends Component {
 }
 
 PageScroller.defaultProps = {
+  myOffsetTop: 0,
   updatedVisiblePage: null
 }
 PageScroller.propTypes = {
   pages: PropTypes.arrayOf(PropTypes.func).isRequired,
+  myOffsetTop: PropTypes.number,
   updatedVisiblePage: PropTypes.number
 }
 
