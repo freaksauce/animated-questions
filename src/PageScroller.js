@@ -28,7 +28,7 @@ class PageScroller extends Component {
    * check which direction the page needs to animate (up/down) and get the selector of the "next" component
    */
   getNextPage(direction) {
-    const selector = direction === 'up' ? `.SPS__page:nth-of-type(${this.state.counter + 1})` : `.SPS__page:nth-of-type(${this.state.counter - 1})`
+    const selector = direction === 'up' ? `.PageScroller__page:nth-of-type(${this.state.counter + 1})` : `.PageScroller__page:nth-of-type(${this.state.counter - 1})`
     return document.querySelector(selector)
   }
 
@@ -36,7 +36,7 @@ class PageScroller extends Component {
    * Force animate to a specific page without seeing any other pages animate, this is possible due to all questions being unmounted on complete
    */
   goToPage(pageNumber = null, direction = 'up') {
-    const selector = `.SPS__page:nth-of-type(${pageNumber})`
+    const selector = `.PageScroller__page:nth-of-type(${pageNumber})`
     this.setState({ visiblePagesArr: this.updatedVisiblePagesArr(direction, pageNumber) }, () => {
       // Scroll to next page
       const el = document.querySelector(selector)
@@ -101,7 +101,7 @@ class PageScroller extends Component {
            the current page underneath in the page so the new page appears at top
            to fix this an offset needs to be applied to the scroll position before animating
         */
-        const el = document.querySelector(`.SPS__page:nth-of-type(${this.state.counter - 1})`)
+        const el = document.querySelector(`.PageScroller__page:nth-of-type(${this.state.counter - 1})`)
         const offset = el.clientHeight
         window.scroll(0, offset)
         this.animatePage(scrollTo, this.state.counter - 1)
