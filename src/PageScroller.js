@@ -132,7 +132,7 @@ class PageScroller extends Component {
 
   render() {
     return (
-      <div className="questionScroller">
+      <div className="PageScroller">
         {this.props.pages.map((PageComponent, index) => {
           const isVisible = !!this.state.visiblePagesArr.includes(`Q${index + 1}`)
           return (
