@@ -71,7 +71,7 @@ export default function scrollIt(destination, duration = 200, easing = 'linear',
     document.documentElement.offsetHeight)
 
   const windowHeight = window.innerHeight || document.documentElement.clientHeight || document.getElementsByTagName('body')[0].clientHeight
-  let destinationOffset = typeof destination === 'number' ? destination : destination.offsetTop - myOffsetTop
+  let destinationOffset = typeof destination === 'number' ? destination : destination.offsetTop - offsetTop
   if (destinationOffset < 0) destinationOffset = 0
   const destinationOffsetToScroll = Math.round(documentHeight - destinationOffset < windowHeight ? documentHeight - windowHeight : destinationOffset)
 
