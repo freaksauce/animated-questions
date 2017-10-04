@@ -3,15 +3,18 @@
 An animated single page scrolling framework.
 
 ## What is it?
-The idea is to have a wrapper component that accepts an array of components that will be used as pages. Only 1 page displays at a time and when you trigger the next and back functions it will animate to those pages.
+The idea is to have a wrapper component that accepts an array of components that will be used as pages. The framework only allows a single page to be visible at any time aside from during a scrolling animation, this is handled by keeping track of the visible pages in an internal state array which uses a prop interally called `visible` to mount and unmount from the DOM, leaving just an empty container DIV (by design).
 
-In order to solve a particular set of challenges in a proposed project I am working on each component needs to be unmounted once scrolled off page and the order of pages needs to be altered on the fly due to pages being added and removed by some conditional logic in other pages.
+In order to solve a particular set of challenges each component needs to be unmounted once scrolled off page and the order of pages needs to be altered on the fly due to pages being potentially added and removed by some conditional logic in other pages.
 
-PageScroller accepts 1 main prop, `pages`, in the example below I have added an additional 3 props to update the array of pages passed in (add, remove and another to update the internal visible pages array and counter):
+PageScroller accepts 2 main props, `pages` and `offsetTop`, the offset refers to if you are using a header component, so if you have a fixed header 200px high then add `offsetTop={200}`.
+
+In the example below I have added an additional 3 props to update the array of pages passed in (add, remove and another to update the internal visible pages array and counter). This would normally be taken care of by updating the redux store but I included these in my repo as a proof of concept.
 
 ```
 PageScroller.propTypes = {
   pages: PropTypes.arrayOf(PropTypes.func).isRequired,
+  offsetTop: PropTypes.number,
   updatedVisiblePage: PropTypes.number,
   addComponentToPagesArray: PropTypes.func,
   removeComponentFromPagesArray: PropTypes.func
@@ -34,7 +37,10 @@ class App extends Component {
 
   render() {
     return (
-      <PageScroller pages={this.state.pagesArray} />
+      <PageScroller
+        pages={this.state.pagesArray}
+        offsetTop={200}
+      />
     )
   }
 }
