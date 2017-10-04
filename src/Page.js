@@ -10,8 +10,6 @@ class Page extends Component {
     this.onNext = this.onNext.bind(this)
     this.onBack = this.onBack.bind(this)
     this.onGoToPage = this.onGoToPage.bind(this)
-    this.addPage = this.addPage.bind(this)
-    this.removePage = this.removePage.bind(this)
 
     this.pageStyles = {
       page__inner: {
