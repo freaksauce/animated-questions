@@ -129,7 +129,7 @@ class PageScroller extends Component {
       removeComponentFromPagesArray
     } = this.props
     return (
-      <div className="questionScroller">
+      <div className="PageScroller">
         {this.props.pages.map((PageComponent, index) => {
           const isVisible = !!this.state.visiblePagesArr.includes(`Q${index + 1}`)
           return (

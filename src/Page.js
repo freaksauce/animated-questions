@@ -45,9 +45,9 @@ class Page extends Component {
 
   render() {
     return (
-      <div className="SPS__page" id={this.props.id}>
+      <div className="PageScroller__page" id={this.props.id}>
         {this.props.visible && (
-          <div className="SPS__page__inner" style={this.pageStyles.page__inner}>
+          <div className="PageScroller__page__inner" style={this.pageStyles.page__inner}>
             {React.cloneElement(this.props.children, {
               extraClasses: this.state.extraClasses,
               onNext: this.onNext,
