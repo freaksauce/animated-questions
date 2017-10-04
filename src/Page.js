@@ -10,6 +10,8 @@ class Page extends Component {
     this.onNext = this.onNext.bind(this)
     this.onBack = this.onBack.bind(this)
     this.onGoToPage = this.onGoToPage.bind(this)
+    this.addPage = this.addPage.bind(this)
+    this.removePage = this.removePage.bind(this)
 
     this.pageStyles = {
       page__inner: {
@@ -30,6 +32,13 @@ class Page extends Component {
   onGoToPage(pageNumber) {
     this.props.goToPage(pageNumber)
   }
+  addPage() {
+    this.props.addComponentToPagesArray()
+  }
+  removePage(componentIndex) {
+    // console.log('removeQuestion', componentIndex)
+    this.props.removeComponentFromPagesArray(componentIndex)
+  }
 
   render() {
     return (
@@ -40,7 +49,9 @@ class Page extends Component {
               extraClasses: this.state.extraClasses,
               onNext: this.onNext,
               onBack: this.onBack,
-              onGoToPage: this.onGoToPage
+              onGoToPage: this.onGoToPage,
+              addPage: this.addPage,
+              removePage: this.removePage
             })}
           </div>
         )}
