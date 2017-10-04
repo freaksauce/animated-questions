@@ -16,10 +16,12 @@ class PageScroller extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (this.props.updatedVisiblePage !== newProps.updatedVisiblePage) {
+    const updatedPagesLength = newProps.pages.length
+    const currentLength = this.props.pages.length
+    if (updatedPagesLength < currentLength) {
       this.setState({
-        counter: newProps.updatedVisiblePage,
-        visiblePagesArr: [`Q${newProps.updatedVisiblePage}`]
+        counter: updatedPagesLength,
+        visiblePagesArr: [`Q${updatedPagesLength}`]
       })
     }
   }
@@ -154,14 +156,12 @@ class PageScroller extends Component {
 
 PageScroller.defaultProps = {
   offsetTop: 0,
-  updatedVisiblePage: null,
   addComponentToPagesArray: null,
   removeComponentFromPagesArray: null
 }
 PageScroller.propTypes = {
   pages: PropTypes.arrayOf(PropTypes.func).isRequired,
   offsetTop: PropTypes.number,
-  updatedVisiblePage: PropTypes.number,
   addComponentToPagesArray: PropTypes.func,
   removeComponentFromPagesArray: PropTypes.func
 }

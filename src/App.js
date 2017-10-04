@@ -55,7 +55,6 @@ class App extends Component {
           <PageScroller
             pages={this.state.pagesArray}
             offsetTop={200}
-            updatedVisiblePage={this.state.updatedVisiblePage}
             addComponentToPagesArray={this.addComponentToPagesArray}
             removeComponentFromPagesArray={this.removeComponentFromPagesArray}
           />
