@@ -36,7 +36,6 @@ class Page extends Component {
     this.props.addComponentToPagesArray()
   }
   removePage(componentIndex) {
-    // console.log('removeQuestion', componentIndex)
     this.props.removeComponentFromPagesArray(componentIndex)
   }
 
@@ -72,6 +71,8 @@ Page.propTypes = {
   incrementPage: PropTypes.func.isRequired,
   decrementPage: PropTypes.func.isRequired,
   goToPage: PropTypes.func,
+  addComponentToPagesArray: PropTypes.func,
+  removeComponentFromPagesArray: PropTypes.func,
   children: PropTypes.node.isRequired
 }
 

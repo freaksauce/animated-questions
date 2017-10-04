@@ -155,12 +155,12 @@ class PageScroller extends Component {
 
 PageScroller.defaultProps = {
   offsetTop: 0,
-  updatedVisiblePage: null,
+  updatedVisiblePage: null
 }
 PageScroller.propTypes = {
   pages: PropTypes.arrayOf(PropTypes.func).isRequired,
   offsetTop: PropTypes.number,
-  updatedVisiblePage: PropTypes.number,
+  updatedVisiblePage: PropTypes.number
 }
 
 export default PageScroller
