@@ -32,12 +32,6 @@ class Page extends Component {
   onGoToPage(pageNumber) {
     this.props.goToPage(pageNumber)
   }
-  addPage() {
-    this.props.addComponentToPagesArray()
-  }
-  removePage(componentIndex) {
-    this.props.removeComponentFromPagesArray(componentIndex)
-  }
 
   render() {
     return (
@@ -48,9 +42,7 @@ class Page extends Component {
               extraClasses: this.state.extraClasses,
               onNext: this.onNext,
               onBack: this.onBack,
-              onGoToPage: this.onGoToPage,
-              addPage: this.addPage,
-              removePage: this.removePage
+              onGoToPage: this.onGoToPage
             })}
           </div>
         )}
@@ -61,9 +53,7 @@ class Page extends Component {
 
 Page.defaultProps = {
   visible: false,
-  goToPage: null,
-  addComponentToPagesArray: null,
-  removeComponentFromPagesArray: null
+  goToPage: null
 }
 Page.propTypes = {
   id: PropTypes.string.isRequired,
@@ -71,8 +61,6 @@ Page.propTypes = {
   incrementPage: PropTypes.func.isRequired,
   decrementPage: PropTypes.func.isRequired,
   goToPage: PropTypes.func,
-  addComponentToPagesArray: PropTypes.func,
-  removeComponentFromPagesArray: PropTypes.func,
   children: PropTypes.node.isRequired
 }
 
