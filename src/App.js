@@ -80,7 +80,7 @@ class App extends Component {
         <div className="App-content">
           <PageScroller
             pages={this.state.pagesArray}
-            offsetTop={200}
+            offsetTop={190}
             hideScrollbars={(hide) => this.hideScrollbars(hide)}
             toggleFooter={(show) => this.toggleFooter(show)}
             addComponentToPagesArray={this.addComponentToPagesArray}
