@@ -17,8 +17,7 @@ class Page extends Component {
       page__inner: {
         width: '100%',
         height: 'calc(100vh - 190px)',
-        transition: 'all .8s ease-in-out',
-        background: '#ccc'
+        transition: 'all .8s ease-in-out'
       }
     }
   }

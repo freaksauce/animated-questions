@@ -40,6 +40,9 @@ body.hideScrollbars {
   display: block;
   padding: 20px 0;
 }
+.PageScroller__page__inner {
+  background: '#ccc'
+}
 .question__input {
   padding: 10px 20px;
 }
