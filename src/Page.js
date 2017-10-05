@@ -12,11 +12,10 @@ class Page extends Component {
     this.onGoToPage = this.onGoToPage.bind(this)
     this.addPage = this.addPage.bind(this)
     this.removePage = this.removePage.bind(this)
-
     this.pageStyles = {
       page__inner: {
         width: '100%',
-        height: 'calc(100vh - 190px)',
+        height: `calc(100vh - ${this.props.offsetTop}px)`,
         transition: 'all .8s ease-in-out'
       }
     }
@@ -65,12 +64,14 @@ class Page extends Component {
 Page.defaultProps = {
   visible: false,
   goToPage: null,
+  offsetTop: 0,
   addComponentToPagesArray: null,
   removeComponentFromPagesArray: null
 }
 Page.propTypes = {
   id: PropTypes.string.isRequired,
   visible: PropTypes.bool,
+  offsetTop: PropTypes.number,
   incrementPage: PropTypes.func.isRequired,
   decrementPage: PropTypes.func.isRequired,
   goToPage: PropTypes.func,

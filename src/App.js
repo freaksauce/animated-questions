@@ -16,7 +16,8 @@ class App extends Component {
   }
   state = {
     pagesArray: [Component1, Component2, Component3],
-    updatedVisiblePage: null
+    updatedVisiblePage: null,
+    footerModifier: ''
   }
   /*
     functions to test that updating the questions array passed into the QuestionScroller
@@ -44,6 +45,31 @@ class App extends Component {
       console.log('removeComponentFromPagesArray', this.state)
     })
   }
+  /**
+   * toggleFooter adds/removes class to show/hide the footer
+   */
+  toggleFooter(show) {
+    if (show === true) {
+      this.setState({ footerModifier: 'App-footer--show' }, () => {
+        const el = document.querySelector('.App-footer')
+        const footerHeight = el.clientHeight
+        window.scroll(0, -footerHeight)
+        this.hideScrollbars(false)
+      })
+    } else {
+      this.setState({ footerModifier: '' })
+    }
+  }
+  /**
+   *
+   */
+  hideScrollbars(hide) {
+    if (hide === true) {
+      document.body.classList.add('hideScrollbars')
+    } else {
+      document.body.classList.remove('hideScrollbars')
+    }
+  }
   render() {
     return (
       <div className="App">
@@ -55,10 +81,13 @@ class App extends Component {
           <PageScroller
             pages={this.state.pagesArray}
             offsetTop={200}
+            hideScrollbars={(hide) => this.hideScrollbars(hide)}
+            toggleFooter={(show) => this.toggleFooter(show)}
             addComponentToPagesArray={this.addComponentToPagesArray}
             removeComponentFromPagesArray={this.removeComponentFromPagesArray}
           />
         </div>
+        <div className={`App-footer ${this.state.footerModifier}`}>Footer</div>
       </div>
     )
   }
