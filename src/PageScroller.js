@@ -78,9 +78,7 @@ class PageScroller extends Component {
     const newVisiblePagesArr = visiblePagesArr.filter(pageId => {
       return pageId !== toDelete
     })
-    this.setState({ visiblePagesArr: newVisiblePagesArr }, () => {
-      console.log(this.state)
-    })
+    this.setState({ visiblePagesArr: newVisiblePagesArr })
   }
 
   incrementPage() {
