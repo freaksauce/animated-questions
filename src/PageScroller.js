@@ -111,19 +111,26 @@ class PageScroller extends Component {
 
   animatePage(scrollTo, counterVal) {
     const currCounter = this.state.counter
-    const { hideScrollbars, toggleFooter } = this.props
-    hideScrollbars(true)
+    const {
+      onAnimationStart,
+      onAnimationEnd,
+      hideScrollbars
+    } = this.props
+    onAnimationStart()
     scrollIt(scrollTo, 500, 'easeOutQuad', () => {
       this.setState({ counter: counterVal })
       // console.log(`Just finished scrolling to ${window.pageYOffset}px`)
       // console.log('Q to remove', `Q${currCounter}`)
       // delete current from visible array
       this.removeFromVisiblePagesArray(`Q${currCounter}`)
+      let isLastPage
       if (this.state.counter === this.props.pages.length) {
-        toggleFooter(true)
+        isLastPage = true
+        hideScrollbars(false)
       } else {
-        toggleFooter(false)
+        isLastPage = false
       }
+      onAnimationEnd(isLastPage)
     }, this.props.offsetTop)
   }
 
@@ -166,15 +173,15 @@ class PageScroller extends Component {
 PageScroller.defaultProps = {
   offsetTop: 0,
   hideScrollbars: null,
-  toggleFooter: null,
   addComponentToPagesArray: null,
   removeComponentFromPagesArray: null
 }
 PageScroller.propTypes = {
   pages: PropTypes.arrayOf(PropTypes.func).isRequired,
   offsetTop: PropTypes.number,
+  onAnimationStart: PropTypes.func.isRequired,
+  onAnimationEnd: PropTypes.func.isRequired,
   hideScrollbars: PropTypes.func,
-  toggleFooter: PropTypes.func,
   addComponentToPagesArray: PropTypes.func,
   removeComponentFromPagesArray: PropTypes.func
 }

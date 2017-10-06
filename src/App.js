@@ -13,11 +13,35 @@ class App extends Component {
     super(props)
     this.addComponentToPagesArray = this.addComponentToPagesArray.bind(this)
     this.removeComponentFromPagesArray = this.removeComponentFromPagesArray.bind(this)
+    this.state = {
+      pagesArray: [Component1, Component2, Component3],
+      footerModifier: ''
+    }
+    console.log('this.toggleFooter', this.toggleFooter)
   }
-  state = {
-    pagesArray: [Component1, Component2, Component3],
-    footerModifier: ''
+  /**
+   * onAnimationStart gets called when animate() function is called
+   * inside of PageScroller. Provides a hook to call other functions
+   * to assist with the application animations
+   */
+  onAnimationStart = () => {
+    console.log('onAnimationStart')
+    this.hideScrollbars(true)
   }
+  /**
+   * onAnimationEnd gets called when animate() function completes the animation
+   * function inside of PageScroller. Provides a hook to call other functions
+   * to assist with the application animations
+   */
+  onAnimationEnd = (isLastPage) => {
+    console.log('onAnimationEnd', `isLastPage: ${isLastPage}`)
+    if (isLastPage) {
+      this.toggleFooter(true)
+    } else {
+      this.toggleFooter(false)
+    }
+  }
+
   /*
     functions to test that updating the questions array passed into the QuestionScroller
     actually updated the DOM correctly
@@ -43,10 +67,12 @@ class App extends Component {
       console.log('removeComponentFromPagesArray', this.state)
     })
   }
+
   /**
    * toggleFooter adds/removes class to show/hide the footer
    */
   toggleFooter(show) {
+    console.log(show)
     const el = document.querySelector('.App-footer')
     if (show === true) {
       el.classList.add('App-footer--show')
@@ -79,8 +105,9 @@ class App extends Component {
           <PageScroller
             pages={this.state.pagesArray}
             offsetTop={190}
+            onAnimationStart={this.onAnimationStart}
+            onAnimationEnd={this.onAnimationEnd}
             hideScrollbars={(hide) => this.hideScrollbars(hide)}
-            toggleFooter={(show) => this.toggleFooter(show)}
             addComponentToPagesArray={this.addComponentToPagesArray}
             removeComponentFromPagesArray={this.removeComponentFromPagesArray}
           />
