@@ -17,7 +17,6 @@ class App extends Component {
       pagesArray: [Component1, Component2, Component3],
       footerModifier: ''
     }
-    console.log('this.toggleFooter', this.toggleFooter)
   }
   /**
    * onAnimationStart gets called when animate() function is called
@@ -37,6 +36,7 @@ class App extends Component {
     console.log('onAnimationEnd', `isLastPage: ${isLastPage}`)
     if (isLastPage) {
       this.toggleFooter(true)
+      this.hideScrollbars(false)
     } else {
       this.toggleFooter(false)
     }
@@ -107,7 +107,6 @@ class App extends Component {
             offsetTop={190}
             onAnimationStart={this.onAnimationStart}
             onAnimationEnd={this.onAnimationEnd}
-            hideScrollbars={(hide) => this.hideScrollbars(hide)}
             addComponentToPagesArray={this.addComponentToPagesArray}
             removeComponentFromPagesArray={this.removeComponentFromPagesArray}
           />

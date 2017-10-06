@@ -113,8 +113,7 @@ class PageScroller extends Component {
     const currCounter = this.state.counter
     const {
       onAnimationStart,
-      onAnimationEnd,
-      hideScrollbars
+      onAnimationEnd
     } = this.props
     onAnimationStart()
     scrollIt(scrollTo, 500, 'easeOutQuad', () => {
@@ -126,7 +125,6 @@ class PageScroller extends Component {
       let isLastPage
       if (this.state.counter === this.props.pages.length) {
         isLastPage = true
-        hideScrollbars(false)
       } else {
         isLastPage = false
       }
@@ -172,7 +170,6 @@ class PageScroller extends Component {
 
 PageScroller.defaultProps = {
   offsetTop: 0,
-  hideScrollbars: null,
   addComponentToPagesArray: null,
   removeComponentFromPagesArray: null
 }
@@ -181,7 +178,6 @@ PageScroller.propTypes = {
   offsetTop: PropTypes.number,
   onAnimationStart: PropTypes.func.isRequired,
   onAnimationEnd: PropTypes.func.isRequired,
-  hideScrollbars: PropTypes.func,
   addComponentToPagesArray: PropTypes.func,
   removeComponentFromPagesArray: PropTypes.func
 }
