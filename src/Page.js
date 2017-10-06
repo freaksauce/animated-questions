@@ -21,12 +21,14 @@ class Page extends Component {
     }
   }
 
-  onNext() {
-    // console.log('onNext')
+  onNext(e) {
+    // console.log('onNext', e)
+    e.preventDefault()
     this.props.incrementPage()
   }
-  onBack() {
-    // console.log('onBack')
+  onBack(e) {
+    // console.log('onBack', e)
+    e.preventDefault()
     this.props.decrementPage()
   }
   onGoToPage(pageNumber) {
