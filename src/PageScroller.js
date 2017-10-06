@@ -136,7 +136,7 @@ class PageScroller extends Component {
       removeComponentFromPagesArray
     } = this.props
     const styles = {
-      marginTop: '190px'
+      marginTop: `${this.props.offsetTop}px`
     }
     return (
       <div className="PageScroller" style={styles}>
