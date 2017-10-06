@@ -16,7 +16,6 @@ class App extends Component {
   }
   state = {
     pagesArray: [Component1, Component2, Component3],
-    updatedVisiblePage: null,
     footerModifier: ''
   }
   /*
@@ -39,8 +38,7 @@ class App extends Component {
     ]
     console.log(updatedPagesArray)
     this.setState({
-      pagesArray: updatedPagesArray,
-      updatedVisiblePage: updatedPagesArray.length
+      pagesArray: updatedPagesArray
     }, () => {
       console.log('removeComponentFromPagesArray', this.state)
     })
@@ -49,15 +47,14 @@ class App extends Component {
    * toggleFooter adds/removes class to show/hide the footer
    */
   toggleFooter(show) {
+    const el = document.querySelector('.App-footer')
     if (show === true) {
-      this.setState({ footerModifier: 'App-footer--show' }, () => {
-        const el = document.querySelector('.App-footer')
-        const footerHeight = el.clientHeight
-        window.scroll(0, -footerHeight)
-        this.hideScrollbars(false)
-      })
+      el.classList.add('App-footer--show')
+      const footerHeight = el.clientHeight
+      window.scroll(0, -footerHeight)
+      this.hideScrollbars(false)
     } else {
-      this.setState({ footerModifier: '' })
+      el.classList.remove('App-footer--show')
     }
   }
   /**
