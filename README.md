@@ -6,17 +6,25 @@ PageScroller is a wrapper component that accepts an array of components that wil
 
 In order to solve a particular requirement each component needs to be unmounted once scrolled off page and the order of pages needs to be altered on the fly due to pages being potentially added and removed by some conditional logic in other pages.
 
-PageScroller accepts 2 main props, `pages` and `offsetTop`, the offset refers to if you are using a header component, so if you have a fixed header 200px high then add `offsetTop={200}`.
+PageScroller accepts 4 main props, `pages`, `offsetTop`, `hideScrollbars` and `toggleFooter`.
 
-In the example below I have added an additional 3 props to update the array of pages passed in (add, remove and another to update the internal visible pages array and counter). This would normally be taken care of by updating the redux store but I included these in the repo as a proof of concept.
+`pages` is an array of components to render as single pages at a time that are animated using the provided methods.
+
+`offsetTop` refers to if you are using a header component, so if you have a fixed header 200px high then add `offsetTop={200}`.
+
+`hideScrollbars` is provided as a callback so that it is possible to run a function to set and remove a class that can be used to hide/show scrollbars. An example of this is that they are hidden by default to disallow user scrolling until the page has finished animating at which point they can scroll down to the footer. This scrollbars should be turned off again before animating. An example is provided in the master branch.
+
+`toggleFooter` is another callback that can be used to set and remove a class to show/hide the footer. Once again this is used during animations and an example is provided in App.js.
+
+
 
 ```
 PageScroller.propTypes = {
   pages: PropTypes.arrayOf(PropTypes.func).isRequired,
   offsetTop: PropTypes.number,
-  updatedVisiblePage: PropTypes.number,
-  addComponentToPagesArray: PropTypes.func,
-  removeComponentFromPagesArray: PropTypes.func
+  hideScrollbars: PropTypes.func,
+  toggleFooter: PropTypes.func,
+  updatedVisiblePage: PropTypes.number
 }
 ```
 
@@ -39,6 +47,12 @@ class App extends Component {
       <PageScroller
         pages={this.state.pagesArray}
         offsetTop={200}
+        hideScrollbars={
+          (hide) => this.hideScrollbars(hide)
+        }
+        toggleFooter={
+          (show) => this.toggleFooter(show)
+        }
       />
     )
   }
@@ -52,7 +66,7 @@ onNext()
 onBack()
 onGoToPage(3)
 ```
-onNext and onBack increment and decrement an internal counter to navigate back and forth while onGoToPage lets you set a page index (starting at 1) so that you can force skip to a page. 
+onNext and onBack increment and decrement an internal counter to navigate back and forth while onGoToPage lets you set a page index (starting at 1) so that you can force skip to a page.
 
 ### Demo App
 After cloning the repo run:
