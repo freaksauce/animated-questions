@@ -2,7 +2,7 @@
   "name": "@iag-packages/iag-page-scroller",
   "description": "Page Scrolling Framework Component",
   "main": "lib/PageScroller.js",
-  "version": "0.0.4",
+  "version": "0.0.8",
   "author": "Jon Bloomer - IAG <jon.bloomer@iag.com.au>",
   "license": "MIT",
   "scripts": {
