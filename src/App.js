@@ -15,7 +15,7 @@ class App extends Component {
     this.removeComponentFromPagesArray = this.removeComponentFromPagesArray.bind(this)
     this.state = {
       pagesArray: [Component1, Component2, Component3],
-      footerModifier: ''
+      footerModifier: 'App-footer--show'
     }
   }
   /**
