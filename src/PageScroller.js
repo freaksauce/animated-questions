@@ -135,8 +135,11 @@ class PageScroller extends Component {
       addComponentToPagesArray,
       removeComponentFromPagesArray
     } = this.props
+    const styles = {
+      marginTop: '190px'
+    }
     return (
-      <div className="PageScroller">
+      <div className="PageScroller" style={styles}>
         {this.props.pages.map((PageComponent, index) => {
           const isVisible = !!this.state.visiblePagesArr.includes(`Q${index + 1}`)
           return (

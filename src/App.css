@@ -42,11 +42,6 @@ body.hideScrollbars {
   to { transform: rotate(360deg); }
 }
 
-
-
-.App-content {
-  margin-top: 190px;
-}
 .PageScroller__page__inner label {
   display: block;
   padding: 20px 0;
