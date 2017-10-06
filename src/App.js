@@ -61,6 +61,7 @@ class App extends Component {
     }
   }
   /**
+   * show and hide scrollbars at any given time based on a class name added to body
    *
    */
   hideScrollbars(hide) {
