@@ -82,7 +82,7 @@ class PageScroller extends Component {
   }
 
   incrementPage() {
-    // console.log('incrementPage')
+    console.log('incrementPage')
     // push next page to visible arr, in <Page> check if in array
     if (this.updatedVisiblePagesArr('up')) {
       const scrollTo = this.getNextPage('up')
@@ -113,7 +113,8 @@ class PageScroller extends Component {
     const currCounter = this.state.counter
     const {
       onAnimationStart,
-      onAnimationEnd
+      onAnimationEnd,
+      pages
     } = this.props
     onAnimationStart()
     scrollIt(scrollTo, 500, 'easeOutQuad', () => {
@@ -123,7 +124,8 @@ class PageScroller extends Component {
       // delete current from visible array
       this.removeFromVisiblePagesArray(`Q${currCounter}`)
       let isLastPage
-      if (this.state.counter === this.props.pages.length) {
+      console.log(this.state.counter, pages.length)
+      if (this.state.counter === pages.length) {
         isLastPage = true
       } else {
         isLastPage = false
