@@ -31,7 +31,7 @@ class Page extends Component {
     e.preventDefault()
     this.props.decrementPage()
   }
-  onGoToPage(pageNumber) {
+  onGoToPage(e, pageNumber) {
     // console.log('onGoToPage', pageNumber)
     e.preventDefault()
     this.props.goToPage(pageNumber)
