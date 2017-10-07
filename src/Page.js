@@ -33,6 +33,7 @@ class Page extends Component {
   }
   onGoToPage(pageNumber) {
     // console.log('onGoToPage', pageNumber)
+    e.preventDefault()
     this.props.goToPage(pageNumber)
   }
   addPage() {
