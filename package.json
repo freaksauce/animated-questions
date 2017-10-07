@@ -2,7 +2,7 @@
   "name": "@iag-packages/iag-page-scroller",
   "description": "Page Scrolling Framework Component",
   "main": "lib/PageScroller.js",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "author": "Jon Bloomer - IAG <jon.bloomer@iag.com.au>",
   "license": "MIT",
   "scripts": {
@@ -10,7 +10,7 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "compile": "npm run babel-compile",
-    "babel-compile": "BABEL_ENV=production babel src/ -d lib/",
+    "babel-compile": "BABEL_ENV=production babel src/ -d lib/ --ignore /src/Component1.js",
     "prepare-prod": "rm -rf lib && npm run test && npm run compile",
     "prepare": "rm -rf lib && npm run compile",
     "unbuild": "rm -rf node_modules || rd /s /q node_modules"
