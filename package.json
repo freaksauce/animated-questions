@@ -10,7 +10,7 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "compile": "npm run babel-compile",
-    "babel-compile": "BABEL_ENV=production babel src/ -d lib/ --ignore /src/Component1.js",
+    "babel-compile": "BABEL_ENV=production babel src/ -d lib/ --ignore src/Component1.js,src/Component2.js,src/Component3.js,src/Component4,src/App.css,src/App.js,src/index.css,src/index.js,src/logo.svg,src/registerServiceWorker.js",
     "prepare-prod": "rm -rf lib && npm run test && npm run compile",
     "prepare": "rm -rf lib && npm run compile",
     "unbuild": "rm -rf node_modules || rd /s /q node_modules"
