@@ -110,7 +110,6 @@ class PageScroller extends Component {
   }
 
   animatePage(scrollTo, counterVal) {
-    console.log('scrollTo', scrollTo)
     const currCounter = this.state.counter
     const {
       onAnimationStart,
