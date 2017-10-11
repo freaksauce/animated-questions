@@ -27,14 +27,6 @@ class PageScroller extends Component {
   }
 
   /**
-   * check which direction the page needs to animate (up/down) and get the selector of the "next" component
-   */
-  getNextPage(direction) {
-    const selector = direction === 'up' ? `.PageScroller__page:nth-of-type(${this.state.counter + 1})` : `.PageScroller__page:nth-of-type(${this.state.counter - 1})`
-    return document.querySelector(selector)
-  }
-
-  /**
    * Force animate to a specific page without seeing any other pages animate, this is possible due to all questions being unmounted on complete
    */
   goToPage(pageNumber = null, direction = 'up') {
@@ -81,34 +73,6 @@ class PageScroller extends Component {
     this.setState({ visiblePagesArr: newVisiblePagesArr })
   }
 
-  incrementPage() {
-    // console.log('incrementPage')
-    // push next page to visible arr, in <Page> check if in array
-    if (this.updatedVisiblePagesArr('up')) {
-      const scrollTo = this.getNextPage('up')
-      this.setState({ visiblePagesArr: this.updatedVisiblePagesArr('up') }, () => {
-        // Scroll to next page
-        this.animatePage(scrollTo, this.state.counter + 1)
-      })
-    }
-  }
-  decrementPage() {
-    // console.log('decrementPage')
-    if (this.updatedVisiblePagesArr('down')) {
-      const scrollTo = this.getNextPage('down')
-      this.setState({ visiblePagesArr: this.updatedVisiblePagesArr('down') }, () => {
-        /* when you mount a page in the DOM above the current page it pushes
-           the current page underneath in the page so the new page appears at top
-           to fix this an offset needs to be applied to the scroll position before animating
-        */
-        const el = document.querySelector(`.PageScroller__page:nth-of-type(${this.state.counter - 1})`)
-        const offset = el.clientHeight
-        window.scroll(0, offset)
-        this.animatePage(scrollTo, this.state.counter - 1)
-      })
-    }
-  }
-
   animatePage(scrollTo, counterVal) {
     // console.log('scrollTo', scrollTo)
     const currCounter = this.state.counter
@@ -149,8 +113,6 @@ class PageScroller extends Component {
               visible={isVisible}
               offsetTop={this.props.offsetTop}
               goToPage={(pageNumber) => this.goToPage(pageNumber)}
-              incrementPage={this.incrementPage}
-              decrementPage={this.decrementPage}
             >
               {PageComponent}
             </Page>
