@@ -14,7 +14,6 @@ class App extends Component {
     this.addComponentToPagesArray = this.addComponentToPagesArray.bind(this)
     this.removeComponentFromPagesArray = this.removeComponentFromPagesArray.bind(this)
     this.state = {
-      pagesArray: [Component1, Component2, Component3],
       footerModifier: 'App-footer--show'
     }
   }
@@ -103,13 +102,15 @@ class App extends Component {
         </div>
         <div className="App-content">
           <PageScroller
-            pages={this.state.pagesArray}
             offsetTop={190}
             onAnimationStart={this.onAnimationStart}
             onAnimationEnd={this.onAnimationEnd}
-            addComponentToPagesArray={this.addComponentToPagesArray}
-            removeComponentFromPagesArray={this.removeComponentFromPagesArray}
-          />
+          >
+            <Component1 />
+            <Component2 />
+            <Component3 />
+            <Component4 />
+          </PageScroller>
         </div>
         <div className={`App-footer ${this.state.footerModifier}`}>Footer</div>
       </div>

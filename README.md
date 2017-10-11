@@ -2,29 +2,25 @@
 
 An animated single page scrolling framework.
 
-PageScroller is a wrapper component that accepts an array of components that will be used as pages that scroll up or down triggered by a click event. The framework only allows a single page to be visible at any time aside from during a scrolling animation, this is handled by keeping track of the visible pages in an internal state array which uses a prop internally called `visible` to mount and unmount from the DOM, leaving just an empty container DIV (by design).
+PageScroller is a wrapper component that accepts Child components that will be used as pages that scroll up or down triggered by a click event. The framework only allows a single page to be visible at any time aside from during a scrolling animation, this is handled by keeping track of the visible pages in an internal state array which uses a prop internally called `visible` to mount and unmount from the DOM, leaving just an empty container DIV (by design).
 
 In order to solve a particular requirement each component needs to be unmounted once scrolled off page and the order of pages needs to be altered on the fly due to pages being potentially added and removed by some conditional logic in other pages.
 
-PageScroller accepts 4 main props, `pages`, `offsetTop`, `hideScrollbars` and `toggleFooter`.
-
-`pages` is an array of components to render as single pages at a time that are animated using the provided methods.
+PageScroller accepts 3 main props, `offsetTop`, `onAnimationStart` and `onAnimationEnd`.
 
 `offsetTop` refers to if you are using a header component, so if you have a fixed header 200px high then add `offsetTop={200}`.
 
-`hideScrollbars` is provided as a callback so that it is possible to run a function to set and remove a class that can be used to hide/show scrollbars. An example of this is that they are hidden by default to disallow user scrolling until the page has finished animating at which point they can scroll down to the footer. This scrollbars should be turned off again before animating. An example is provided in the master branch.
+`onAnimationStart` is provided as a callback, in my example I execute the hideScrollbars() function.
 
-`toggleFooter` is another callback that can be used to set and remove a class to show/hide the footer. Once again this is used during animations and an example is provided in App.js.
-
+`onAnimationStart` is another callback which can be used for showing/hiding scrollbars or toggling a footer etc.
 
 
 ```
 PageScroller.propTypes = {
-  pages: PropTypes.arrayOf(PropTypes.func).isRequired,
+  children: PropTypes.arrayOf(PropTypes.func).isRequired,
   offsetTop: PropTypes.number,
-  hideScrollbars: PropTypes.func,
-  toggleFooter: PropTypes.func,
-  updatedVisiblePage: PropTypes.number
+  onAnimationStart: PropTypes.func.isRequired,
+  onAnimationEnd: PropTypes.func.isRequired
 }
 ```
 
@@ -45,15 +41,15 @@ class App extends Component {
   render() {
     return (
       <PageScroller
-        pages={this.state.pagesArray}
-        offsetTop={200}
-        hideScrollbars={
-          (hide) => this.hideScrollbars(hide)
-        }
-        toggleFooter={
-          (show) => this.toggleFooter(show)
-        }
-      />
+        offsetTop={190}
+        onAnimationStart={this.onAnimationStart}
+        onAnimationEnd={this.onAnimationEnd}
+      >
+        <Component1 />
+        <Component2 />
+        <Component3 />
+        <Component4 />
+      </PageScroller>
     )
   }
 }

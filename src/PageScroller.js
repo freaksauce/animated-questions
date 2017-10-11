@@ -16,8 +16,8 @@ class PageScroller extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    const updatedPagesLength = newProps.pages.length
-    const currentLength = this.props.pages.length
+    const updatedPagesLength = newProps.children.length
+    const currentLength = this.props.children.length
     if (updatedPagesLength < currentLength) {
       this.setState({
         counter: updatedPagesLength,
@@ -53,7 +53,7 @@ class PageScroller extends Component {
   updatedVisiblePagesArr(direction = 'up', pageNumber) {
     // console.log('updatedVisiblePagesArr', direction, pageNumber)
     const visiblePagesArr = this.state.visiblePagesArr
-    const pagesArrLen = this.props.pages.length
+    const pagesArrLen = this.props.children.length
     let pageToAdd = null
     if (pageNumber) {
       pageToAdd = `Q${pageNumber}`
@@ -110,11 +110,12 @@ class PageScroller extends Component {
   }
 
   animatePage(scrollTo, counterVal) {
+    // console.log('scrollTo', scrollTo)
     const currCounter = this.state.counter
     const {
       onAnimationStart,
       onAnimationEnd,
-      pages
+      children
     } = this.props
     onAnimationStart()
     scrollIt(scrollTo, 500, 'easeOutQuad', () => {
@@ -124,7 +125,7 @@ class PageScroller extends Component {
       // delete current from visible array
       this.removeFromVisiblePagesArray(`Q${currCounter}`)
       let isLastPage
-      if (counterVal === pages.length) {
+      if (counterVal === children.length) {
         isLastPage = true
       } else {
         isLastPage = false
@@ -134,19 +135,12 @@ class PageScroller extends Component {
   }
 
   render() {
-    /*
-      test functions to add/remove components from the DOM set in App.js
-    */
-    const {
-      addComponentToPagesArray,
-      removeComponentFromPagesArray
-    } = this.props
     const styles = {
       marginTop: `${this.props.offsetTop}px`
     }
     return (
       <div className="PageScroller" style={styles}>
-        {this.props.pages.map((PageComponent, index) => {
+        {React.Children.map(this.props.children, (PageComponent, index) => {
           const isVisible = !!this.state.visiblePagesArr.includes(`Q${index + 1}`)
           return (
             <Page
@@ -157,10 +151,8 @@ class PageScroller extends Component {
               goToPage={(pageNumber) => this.goToPage(pageNumber)}
               incrementPage={this.incrementPage}
               decrementPage={this.decrementPage}
-              addComponentToPagesArray={addComponentToPagesArray}
-              removeComponentFromPagesArray={(componentId) => removeComponentFromPagesArray(componentId)}
             >
-              <PageComponent />
+              {PageComponent}
             </Page>
           )
         })}
@@ -170,17 +162,13 @@ class PageScroller extends Component {
 }
 
 PageScroller.defaultProps = {
-  offsetTop: 0,
-  addComponentToPagesArray: null,
-  removeComponentFromPagesArray: null
+  offsetTop: 0
 }
 PageScroller.propTypes = {
-  pages: PropTypes.arrayOf(PropTypes.func).isRequired,
+  children: PropTypes.arrayOf(PropTypes.func).isRequired,
   offsetTop: PropTypes.number,
   onAnimationStart: PropTypes.func.isRequired,
-  onAnimationEnd: PropTypes.func.isRequired,
-  addComponentToPagesArray: PropTypes.func,
-  removeComponentFromPagesArray: PropTypes.func
+  onAnimationEnd: PropTypes.func.isRequired
 }
 
 export default PageScroller
