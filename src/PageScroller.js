@@ -8,8 +8,8 @@ class PageScroller extends Component {
     super(props)
     this.state = {
       counter: 1,
-      currentElementId: 'Q1',
-      visiblePagesArr: ['Q1']
+      currentElementId: 'P1',
+      visiblePagesArr: ['P1']
     }
     this.goToPage = this.goToPage.bind(this)
   }
@@ -20,7 +20,7 @@ class PageScroller extends Component {
     if (updatedPagesLength < currentLength) {
       this.setState({
         counter: updatedPagesLength,
-        visiblePagesArr: [`Q${updatedPagesLength}`]
+        visiblePagesArr: [`P${updatedPagesLength}`]
       })
     }
   }
@@ -86,7 +86,7 @@ class PageScroller extends Component {
     return (
       <div className="PageScroller" style={styles}>
         {React.Children.map(children, (PageComponent, index) => {
-          const pageId = `Q${index + 1}`
+          const pageId = `P${index + 1}`
           const isVisible = !!this.state.visiblePagesArr.includes(pageId)
           return (
             <Page

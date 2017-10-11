@@ -5,9 +5,9 @@ const Component3 = props => (
   <div>
     <label htmlFor="input3">This is page 3</label>
     <input id="input3" className="question__input" value="" type="text" />
-    <button className="question__submit" onClick={() => props.onGoToPage('Q2', 'up')}>Back</button>
-    <button className="question__submit" onClick={() => props.onGoToPage('Q4', 'down')}>Next</button>
-    <button className="question__submit" onClick={() => props.onGoToPage('Q1', 'up')}>Go to page 1</button>
+    <button className="question__submit" onClick={() => props.onGoToPage('P2', 'up')}>Back</button>
+    <button className="question__submit" onClick={() => props.onGoToPage('P4', 'down')}>Next</button>
+    <button className="question__submit" onClick={() => props.onGoToPage('P1', 'up')}>Go to page 1</button>
   </div>
 )
 
