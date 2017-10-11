@@ -7,11 +7,7 @@ class Page extends Component {
     this.state = {
       extraClasses: null
     }
-    this.onNext = this.onNext.bind(this)
-    this.onBack = this.onBack.bind(this)
     this.onGoToPage = this.onGoToPage.bind(this)
-    this.addPage = this.addPage.bind(this)
-    this.removePage = this.removePage.bind(this)
     this.pageStyles = {
       page__inner: {
         width: '100%',
@@ -21,27 +17,8 @@ class Page extends Component {
     }
   }
 
-  onNext(e) {
-    // console.log('onNext', e)
-    e.preventDefault()
-    this.props.incrementPage()
-  }
-  onBack(e) {
-    // console.log('onBack', e)
-    e.preventDefault()
-    this.props.decrementPage()
-  }
-  onGoToPage(e, pageNumber) {
-    // console.log('onGoToPage', pageNumber)
-    e.preventDefault()
-    this.props.goToPage(pageNumber)
-  }
-  addPage() {
-    this.props.addComponentToPagesArray()
-  }
-  removePage(componentIndex) {
-    // console.log('removeQuestion', componentIndex)
-    this.props.removeComponentFromPagesArray(componentIndex)
+  onGoToPage(elementId, direction) {
+    this.props.goToPage(elementId, direction)
   }
 
   render() {
@@ -51,11 +28,7 @@ class Page extends Component {
           <div className="PageScroller__page__inner" style={this.pageStyles.page__inner}>
             {React.cloneElement(this.props.children, {
               extraClasses: this.state.extraClasses,
-              onNext: this.onNext,
-              onBack: this.onBack,
-              onGoToPage: this.onGoToPage,
-              addPage: this.addPage,
-              removePage: this.removePage
+              onGoToPage: this.onGoToPage
             })}
           </div>
         )}
@@ -67,19 +40,13 @@ class Page extends Component {
 Page.defaultProps = {
   visible: false,
   goToPage: null,
-  offsetTop: 0,
-  addComponentToPagesArray: null,
-  removeComponentFromPagesArray: null
+  offsetTop: 0
 }
 Page.propTypes = {
   id: PropTypes.string.isRequired,
   visible: PropTypes.bool,
   offsetTop: PropTypes.number,
-  incrementPage: PropTypes.func.isRequired,
-  decrementPage: PropTypes.func.isRequired,
   goToPage: PropTypes.func,
-  addComponentToPagesArray: PropTypes.func,
-  removeComponentFromPagesArray: PropTypes.func,
   children: PropTypes.node.isRequired
 }
 

@@ -8,6 +8,7 @@ class PageScroller extends Component {
     super(props)
     this.state = {
       counter: 1,
+      currentElementId: 'Q1',
       visiblePagesArr: ['Q1']
     }
     this.goToPage = this.goToPage.bind(this)
@@ -27,67 +28,47 @@ class PageScroller extends Component {
   /**
    * Force animate to a specific page without seeing any other pages animate, this is possible due to all questions being unmounted on complete
    */
-  goToPage(pageNumber = null, direction = 'up') {
-    const selector = `.PageScroller__page:nth-of-type(${pageNumber})`
-    this.setState({ visiblePagesArr: this.updatedVisiblePagesArr(direction, pageNumber) }, () => {
+  goToPage(elementId = null, direction = 'up') {
+    this.setState({ visiblePagesArr: this.updatedVisiblePagesArr(elementId) }, () => {
       // Scroll to next page
-      const el = document.querySelector(selector)
+      const el = document.getElementById(this.state.currentElementId)
       if (direction === 'up') {
         const offset = el.clientHeight
         window.scroll(0, offset)
       }
-      this.animatePage(el, pageNumber)
+      this.animatePage(el, elementId)
     })
   }
 
-  updatedVisiblePagesArr(direction = 'up', pageNumber) {
-    // console.log('updatedVisiblePagesArr', direction, pageNumber)
+  updatedVisiblePagesArr(elementId) {
     const visiblePagesArr = this.state.visiblePagesArr
-    const pagesArrLen = this.props.children.length
-    let pageToAdd = null
-    if (pageNumber) {
-      pageToAdd = `Q${pageNumber}`
-    } else if (direction && direction === 'up') {
-      // check if direction was up (increment)
-      if (this.state.counter + 1 <= pagesArrLen) {
-        // if allowed create a new page id string to add to questionsArr
-        pageToAdd = `Q${this.state.counter + 1}`
-      }
-    } else if (direction && direction === 'down' && this.state.counter - 1 >= 1) {
-      // if direction was down (decrement)
-      pageToAdd = `Q${this.state.counter - 1}`
-    }
     // if not null add the page ID to the array and return
-    if (pageToAdd !== null) return [...visiblePagesArr, pageToAdd]
+    if (elementId !== null) return [...visiblePagesArr, elementId]
     return false
   }
 
-  removeFromVisiblePagesArray(toDelete) {
-    // console.log('removeFromVisiblePagesArray')
+  removeFromVisiblePagesArray(elementId) {
     const visiblePagesArr = this.state.visiblePagesArr
     const newVisiblePagesArr = visiblePagesArr.filter(pageId => {
-      return pageId !== toDelete
+      return pageId !== elementId
     })
     this.setState({ visiblePagesArr: newVisiblePagesArr })
   }
 
-  animatePage(scrollTo, counterVal) {
-    // console.log('scrollTo', scrollTo)
-    const currCounter = this.state.counter
+  animatePage(scrollTo, elementId) {
     const {
       onAnimationStart,
-      onAnimationEnd,
-      children
+      onAnimationEnd
     } = this.props
+    const questionsArrDom = document.querySelectorAll('.PageScroller__page')
     onAnimationStart()
     scrollIt(scrollTo, 500, 'easeOutQuad', () => {
-      this.setState({ counter: counterVal })
-      // console.log(`Just finished scrolling to ${window.pageYOffset}px`)
-      // console.log('Q to remove', `Q${currCounter}`)
       // delete current from visible array
-      this.removeFromVisiblePagesArray(`Q${currCounter}`)
+      this.removeFromVisiblePagesArray(this.state.currentElementId)
+      this.setState({ currentElementId: elementId })
       let isLastPage
-      if (counterVal === children.length) {
+      const lastElementId = questionsArrDom[questionsArrDom.length - 1].id
+      if (elementId === lastElementId) {
         isLastPage = true
       } else {
         isLastPage = false
@@ -100,17 +81,19 @@ class PageScroller extends Component {
     const styles = {
       marginTop: `${this.props.offsetTop}px`
     }
+    const { children } = this.props
     return (
       <div className="PageScroller" style={styles}>
-        {React.Children.map(this.props.children, (PageComponent, index) => {
-          const isVisible = !!this.state.visiblePagesArr.includes(`Q${index + 1}`)
+        {React.Children.map(children, (PageComponent, index) => {
+          const pageId = `Q${index + 1}`
+          const isVisible = !!this.state.visiblePagesArr.includes(pageId)
           return (
             <Page
-              id={`Q${index + 1}`}
-              key={`Q${index + 1}`}
+              id={pageId}
+              key={pageId}
               visible={isVisible}
               offsetTop={this.props.offsetTop}
-              goToPage={(pageNumber) => this.goToPage(pageNumber)}
+              goToPage={(elementId) => this.goToPage(elementId)}
             >
               {PageComponent}
             </Page>
@@ -125,7 +108,7 @@ PageScroller.defaultProps = {
   offsetTop: 0
 }
 PageScroller.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.func).isRequired,
+  children: PropTypes.arrayOf(PropTypes.object).isRequired,
   offsetTop: PropTypes.number,
   onAnimationStart: PropTypes.func.isRequired,
   onAnimationEnd: PropTypes.func.isRequired

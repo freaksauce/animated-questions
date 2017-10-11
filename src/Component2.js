@@ -5,27 +5,20 @@ const Component2 = props => (
   <div>
     <label htmlFor="input2">This is page 2</label>
     <input id="input2" className="question__input" value="" type="text" />
-    <button className="question__submit" onClick={props.onBack}>
+    <button className="question__submit" onClick={() => props.onGoToPage('Q1', 'down')}>
       Back
     </button>
-    <button className="question__submit" onClick={props.onNext}>
+    <button className="question__submit" onClick={() => props.onGoToPage('Q3', 'up')}>
       Next
-    </button>
-    <button className="question__submit" onClick={props.addPage}>
-      Add Page
     </button>
   </div>
 )
 
 Component2.defaultProps = {
-  onBack: null,
-  onNext: null,
-  addPage: null
+  onGoToPage: null
 }
 Component2.propTypes = {
-  onBack: PropTypes.func,
-  onNext: PropTypes.func,
-  addPage: PropTypes.func
+  onGoToPage: PropTypes.func
 }
 
 export default Component2
