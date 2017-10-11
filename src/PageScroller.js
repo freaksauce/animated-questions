@@ -32,11 +32,11 @@ class PageScroller extends Component {
     this.setState({ visiblePagesArr: this.updatedVisiblePagesArr(elementId) }, () => {
       // Scroll to next page
       const el = document.getElementById(this.state.currentElementId)
-      if (direction === 'up') {
+      if (direction === 'back') {
         const offset = el.clientHeight
         window.scroll(0, offset)
       }
-      this.animatePage(elementId)
+      this.animatePage(elementId, direction)
     })
   }
 
@@ -55,7 +55,7 @@ class PageScroller extends Component {
     this.setState({ visiblePagesArr: newVisiblePagesArr })
   }
 
-  animatePage(elementId) {
+  animatePage(elementId, direction) {
     const {
       onAnimationStart,
       onAnimationEnd
@@ -74,7 +74,7 @@ class PageScroller extends Component {
       } else {
         isLastPage = false
       }
-      onAnimationEnd(isLastPage)
+      onAnimationEnd(isLastPage, direction)
     }, this.props.offsetTop)
   }
 

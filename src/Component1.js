@@ -5,9 +5,10 @@ const Component1 = props => (
   <div>
     <label htmlFor="input1">This is page 1</label>
     <input id="input1" className="question__input" value="" type="text" />
-    <button className="question__next question__submit" onClick={() => props.onGoToPage('P2', 'down')}>
+    <button className="question__next question__submit" onClick={() => props.onGoToPage('P2', 'next')}>
       Next
     </button>
+    <button className="question__submit" onClick={() => props.onGoToPage('P3', 'next')}>Go to page 3</button>
   </div>
 )
 
