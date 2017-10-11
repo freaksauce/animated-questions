@@ -17,8 +17,9 @@ class Page extends Component {
     }
   }
 
-  onGoToPage(elementId, direction) {
+  onGoToPage(elementId, direction, event) {
     this.props.goToPage(elementId, direction)
+    if (event) event.preventDefault()
   }
 
   render() {
