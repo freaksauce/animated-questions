@@ -28,7 +28,7 @@ class PageScroller extends Component {
   /**
    * Force animate to a specific page without seeing any other pages animate, this is possible due to all questions being unmounted on complete
    */
-  goToPage(elementId = null, direction = 'up') {
+  goToPage(elementId, direction) {
     this.setState({ visiblePagesArr: this.updatedVisiblePagesArr(elementId) }, () => {
       // Scroll to next page
       const el = document.getElementById(this.state.currentElementId)
@@ -36,7 +36,7 @@ class PageScroller extends Component {
         const offset = el.clientHeight
         window.scroll(0, offset)
       }
-      this.animatePage(el, elementId)
+      this.animatePage(elementId)
     })
   }
 
@@ -55,12 +55,13 @@ class PageScroller extends Component {
     this.setState({ visiblePagesArr: newVisiblePagesArr })
   }
 
-  animatePage(scrollTo, elementId) {
+  animatePage(elementId) {
     const {
       onAnimationStart,
       onAnimationEnd
     } = this.props
     const questionsArrDom = document.querySelectorAll('.PageScroller__page')
+    const scrollTo = document.getElementById(elementId)
     onAnimationStart()
     scrollIt(scrollTo, 500, 'easeOutQuad', () => {
       // delete current from visible array
@@ -93,7 +94,7 @@ class PageScroller extends Component {
               key={pageId}
               visible={isVisible}
               offsetTop={this.props.offsetTop}
-              goToPage={(elementId) => this.goToPage(elementId)}
+              goToPage={(elementId, direction) => this.goToPage(elementId, direction)}
             >
               {PageComponent}
             </Page>
