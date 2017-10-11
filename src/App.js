@@ -11,8 +11,6 @@ import Component4 from './Component4'
 class App extends Component {
   constructor(props) {
     super(props)
-    this.addComponentToPagesArray = this.addComponentToPagesArray.bind(this)
-    this.removeComponentFromPagesArray = this.removeComponentFromPagesArray.bind(this)
     this.state = {
       footerModifier: 'App-footer--show'
     }
@@ -40,33 +38,6 @@ class App extends Component {
       this.toggleFooter(false)
     }
   }
-
-  /*
-    functions to test that updating the questions array passed into the QuestionScroller
-    actually updated the DOM correctly
-  */
-  // addComponentToQuestionsArray(componentToAdd) {
-  addComponentToPagesArray() {
-    console.log('addComponentToQuestionsArray')
-    const componentToAdd = Component4
-    const updatedPagesArray = [...this.state.pagesArray, componentToAdd]
-    this.setState({ pagesArray: updatedPagesArray })
-  }
-  removeComponentFromPagesArray(componentIndex) {
-    const { pagesArray } = this.state
-    // remove the component from DOM via the questionsArray
-    const updatedPagesArray = [
-      ...pagesArray.slice(0, componentIndex - 1),
-      ...pagesArray.slice(componentIndex)
-    ]
-    console.log(updatedPagesArray)
-    this.setState({
-      pagesArray: updatedPagesArray
-    }, () => {
-      console.log('removeComponentFromPagesArray', this.state)
-    })
-  }
-
   /**
    * toggleFooter adds/removes class to show/hide the footer
    */
