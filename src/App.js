@@ -29,8 +29,8 @@ class App extends Component {
    * function inside of PageScroller. Provides a hook to call other functions
    * to assist with the application animations
    */
-  onAnimationEnd = (isLastPage) => {
-    console.log('onAnimationEnd', `isLastPage: ${isLastPage}`)
+  onAnimationEnd = (isLastPage, direction) => {
+    console.log('onAnimationEnd', `isLastPage: ${isLastPage}`, direction)
     if (isLastPage) {
       this.toggleFooter(true)
       this.hideScrollbars(false)
