@@ -10,8 +10,6 @@ class PageScroller extends Component {
       counter: 1,
       visiblePagesArr: ['Q1']
     }
-    this.incrementPage = this.incrementPage.bind(this)
-    this.decrementPage = this.decrementPage.bind(this)
     this.goToPage = this.goToPage.bind(this)
   }
 
