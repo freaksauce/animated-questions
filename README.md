@@ -56,13 +56,10 @@ class App extends Component {
 ```
 
 ### Available methods
-In order to navigate from page to page there are 3 included methods that you can attach to onClick events etc. in your Page components.
+In order to navigate from page to page there is an included method that you can attach to onClick events etc. in your Page components. It needs 2 arguments, the id attribute of the page you want to scroll to ('P1', 'P2' etc.)
 ```
-onNext()
-onBack()
-onGoToPage(3)
+onGoToPage('P2', 'up')
 ```
-onNext and onBack increment and decrement an internal counter to navigate back and forth while onGoToPage lets you set a page index (starting at 1) so that you can force skip to a page.
 
 ### Demo App
 After cloning the repo run:
