@@ -77,7 +77,7 @@ class App extends Component {
             onAnimationStart={this.onAnimationStart}
             onAnimationEnd={this.onAnimationEnd}
           >
-            <Component1 id="question1" />
+            <Component1 pageId="question1" />
             <Component2 />
             <Component3 />
             <Component4 />

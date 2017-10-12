@@ -7,7 +7,7 @@ const Component3 = props => (
     <input id="input3" className="question__input" value="" type="text" />
     <button className="question__submit" onClick={() => props.onGoToPage('P2', 'back')}>Back</button>
     <button className="question__submit" onClick={() => props.onGoToPage('P4', 'next')}>Next</button>
-    <button className="question__submit" onClick={() => props.onGoToPage('P1', 'back')}>Go to page 1</button>
+    <button className="question__submit" onClick={() => props.onGoToPage('question1', 'back')}>Go to page 1</button>
   </div>
 )
 

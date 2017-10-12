@@ -86,8 +86,8 @@ class PageScroller extends Component {
     return (
       <div className="PageScroller" style={styles}>
         {React.Children.map(children, (PageComponent, index) => {
-          const idProp = PageComponent.props.id
-          const pageId = (idProp !== undefined) ? idProp : `P${index + 1}`
+          const pageIdProp = PageComponent.props.pageId
+          const pageId = (pageIdProp !== undefined) ? pageIdProp : `P${index + 1}`
           if (index === 0 && this.state.currentElementId === '') {
             this.state.currentElementId = pageId
             this.state.visiblePagesArr = [pageId]
