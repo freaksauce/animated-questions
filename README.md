@@ -45,7 +45,7 @@ class App extends Component {
         onAnimationStart={this.onAnimationStart}
         onAnimationEnd={this.onAnimationEnd}
       >
-        <Component1 />
+        <Component1 id="question1" />
         <Component2 />
         <Component3 />
         <Component4 />
@@ -56,9 +56,10 @@ class App extends Component {
 ```
 
 ### Available methods
-In order to navigate from page to page there is an included method that you can attach to onClick events etc. in your Page components. It needs 2 arguments, the id attribute of the page you want to scroll to ('P1', 'P2' etc.)
+In order to navigate from page to page there is an included method that you can attach to onClick events etc. in your Page components. It needs 2 arguments, the id attribute of the page you want to scroll to ('id1', 'id2' etc.). If you do not add an id prop to the child components it will automatically assign an id eg. P2 (P for page, number is the index of the children array)
 ```
-onGoToPage('P2', 'up')
+onGoToPage('question1', 'back')
+onGoToPage('P3', 'next')
 ```
 
 ### Demo App

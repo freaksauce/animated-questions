@@ -8,8 +8,8 @@ class PageScroller extends Component {
     super(props)
     this.state = {
       counter: 1,
-      currentElementId: 'P1',
-      visiblePagesArr: ['P1']
+      currentElementId: '',
+      visiblePagesArr: []
     }
     this.goToPage = this.goToPage.bind(this)
   }
@@ -86,7 +86,12 @@ class PageScroller extends Component {
     return (
       <div className="PageScroller" style={styles}>
         {React.Children.map(children, (PageComponent, index) => {
-          const pageId = `P${index + 1}`
+          const idProp = PageComponent.props.id
+          const pageId = (idProp !== undefined) ? idProp : `P${index + 1}`
+          if (index === 0 && this.state.currentElementId === '') {
+            this.state.currentElementId = pageId
+            this.state.visiblePagesArr = [pageId]
+          }
           const isVisible = !!this.state.visiblePagesArr.includes(pageId)
           return (
             <Page
