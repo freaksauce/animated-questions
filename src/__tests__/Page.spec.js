@@ -10,8 +10,6 @@ configure({ adapter: new Adapter() })
 const PageComponent = (<Page
   id="1"
   visible
-  incrementPage={() => {}}
-  decrementPage={() => {}}
 ><p className="myText">My Page</p></Page>)
 
 const shallowRender = shallow(PageComponent)
